@@ -13,15 +13,16 @@ import java.util.List;
 @Setter
 @Entity
 
-@Table(name = "tbPersona")
+@Table(name = "tbPersona", schema = "General")
 public class TbPersona implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "persona", nullable = false)
-    private Long persona;
+    private Integer persona;
 
     @Column(name = "apellido_paterno")
     private String apellidoPaterno;

@@ -13,8 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "tbEspecialidad")
 
+@Table(name = "tbEspecialidad")
 public class TbEspecialidad implements Serializable {
 
     @Serial
