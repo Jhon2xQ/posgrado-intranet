@@ -22,16 +22,18 @@ public class TbAlumnoCarrera implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "alumno", nullable = false)
-    private String alumno;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "alumno", nullable = false)
+    private TbAlumno alumno;
 
     @Id
-    @Column(name = "carrera", nullable = false)
-    private String carrera;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrera", nullable = false)
+    private TbCarrera carrera;
 
-    @Id
-    @Column(name = "especialidad", nullable = false)
-    private String especialidad;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especialidad", nullable = false)
+    private TbEspecialidad especialidad;
 
     @Column(name = "curricula")
     private Integer curricula;

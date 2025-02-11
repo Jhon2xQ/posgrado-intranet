@@ -1,21 +1,20 @@
 package com.sistema.intranet.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.sistema.intranet.models.IdClasses.TbEspecialidadId;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-
 @Table(name = "tbEspecialidad")
+
 public class TbEspecialidad implements Serializable {
 
     @Serial
@@ -25,11 +24,13 @@ public class TbEspecialidad implements Serializable {
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
 
-    @Id
-    @Column(name = "carrera", nullable = false)
-    private String carrera;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrera", nullable = false)
+    private TbCarrera carrera;
 
     @Column(name = "descripcion")
     private String descripcion;
 
+    @OneToMany(mappedBy = "especialidad")
+    private List<TbAlumnoCarrera> alumnoCarreras;
 }

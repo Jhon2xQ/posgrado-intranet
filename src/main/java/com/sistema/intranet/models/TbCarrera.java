@@ -1,13 +1,11 @@
 package com.sistema.intranet.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +30,6 @@ public class TbCarrera implements Serializable {
     @Column(name = "tipo_carrera")
     private String tipoCarrera;
 
+    @OneToMany(mappedBy = "carrera")
+    private List<TbEspecialidad> especialidades;
 }

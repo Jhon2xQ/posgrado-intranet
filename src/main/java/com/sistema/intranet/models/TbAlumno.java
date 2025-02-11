@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,4 +26,10 @@ public class TbAlumno implements Serializable {
     @ManyToOne
     @JoinColumn(name = "persona", nullable = false)
     private TbPersona persona;
+
+    @OneToOne(mappedBy = "alumno")
+    private TbAlumnoCarrera alumnoCarrera;
+
+    @OneToMany(mappedBy = "alumno")
+    private List<TbPagoDetalle> pagoDetalles;
 }

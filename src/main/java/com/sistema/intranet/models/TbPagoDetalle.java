@@ -1,9 +1,6 @@
 package com.sistema.intranet.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
@@ -27,8 +24,9 @@ public class TbPagoDetalle implements Serializable {
     @Column(name = "recibo")
     private String recibo;
 
-    @Column(name = "alumno", nullable = false)
-    private String alumno;
+    @ManyToOne()
+    @JoinColumn(name = "alumno", nullable = false)
+    private TbAlumno alumno;
 
     @Column(name = "semestre")
     private String semestre;
@@ -44,5 +42,4 @@ public class TbPagoDetalle implements Serializable {
 
     @Column(name = "lugarpago")
     private String lugarpago;
-
 }

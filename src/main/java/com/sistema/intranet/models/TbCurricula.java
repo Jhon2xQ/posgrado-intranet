@@ -26,7 +26,6 @@ public class TbCurricula implements Serializable {
     @Column(name = "curricula", nullable = false)
     private Integer curricula;
 
-    @Id
     @Column(name = "carrera", nullable = false)
     private String carrera;
 

@@ -5,16 +5,15 @@ import java.util.Objects;
 
 public class TbAlumnoCarreraId implements Serializable {
 
-    private String alumno;
-    private String carrera;
-    private String especialidad;
+    private String alumno; // ID de TbAlumno
+    private String carrera; // ID de TbCarrera
 
-    public TbAlumnoCarreraId() {}
+    public TbAlumnoCarreraId() {
+    }
 
-    public TbAlumnoCarreraId(String alumno, String carrera, String especialidad, Integer curricula) {
+    public TbAlumnoCarreraId(String alumno, String carrera) {
         this.alumno = alumno;
         this.carrera = carrera;
-        this.especialidad = especialidad;
     }
 
     @Override
@@ -23,12 +22,11 @@ public class TbAlumnoCarreraId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         TbAlumnoCarreraId that = (TbAlumnoCarreraId) o;
         return Objects.equals(alumno, that.alumno) &&
-                Objects.equals(carrera, that.carrera) &&
-                Objects.equals(especialidad, that.especialidad);
+                Objects.equals(carrera, that.carrera);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(alumno, carrera, especialidad);
+        return Objects.hash(alumno, carrera);
     }
 }
