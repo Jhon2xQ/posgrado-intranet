@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.intranet.models.IdClasses.TbAlumnoCarreraId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,17 +15,17 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 
-@Table(name = "tbAlumnoCarrera")
+@Table(name = "tbAlumnoCarrera", schema = "Academico")
 @IdClass(TbAlumnoCarreraId.class)
+
 public class TbAlumnoCarrera implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "alumno", nullable = false)
-    private TbAlumno alumno;
+    @Column (name = "alumno", nullable = false)
+    private String alumno;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

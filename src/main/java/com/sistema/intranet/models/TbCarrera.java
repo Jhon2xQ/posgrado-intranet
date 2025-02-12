@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 
 
-@Table(name = "tbCarrera")
+@Table(name = "tbCarrera", schema = "Academico")
 public class TbCarrera implements Serializable {
 
     @Serial
@@ -31,5 +32,5 @@ public class TbCarrera implements Serializable {
     private String tipoCarrera;
 
     @OneToMany(mappedBy = "carrera")
-    private List<TbEspecialidad> especialidades;
+    private List<TbAlumnoCarrera> alumnoCarreras;
 }

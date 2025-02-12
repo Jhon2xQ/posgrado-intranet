@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class TbPersona implements Serializable {
     @Column(name = "nombres")
     private String nombres;
 
-    @OneToMany(mappedBy = "persona")
-    private List<TbAlumno> alumnos;
+    /*@OneToMany(mappedBy = "persona")
+    @JsonIgnore
+    private List<TbAlumno> alumnos;*/
 }

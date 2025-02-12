@@ -8,19 +8,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
+
 @Service
 public class TbPersonaService {
 
-    @Autowired
-    private TbPersonaRepository tbPersonaRepository;
+    private final TbPersonaRepository tbPersonaRepository;
 
-    public List<TbPersona> getPersonas() {
-        return tbPersonaRepository.findAll();
-    }
+
+    /*=================================MÉTODOS=================================*/
+
+    /*--------Obtener la entidad persona buscando por su id---------*/
 
     public TbPersona getPersona(Integer persona) {
-        TbPersona personaEncontrada = tbPersonaRepository.findById(persona).orElse(null);
-        System.out.println("🔍 Persona encontrada: " + personaEncontrada);
-        return personaEncontrada;
+        return tbPersonaRepository.findById(persona).orElse(null);
     }
+
 }

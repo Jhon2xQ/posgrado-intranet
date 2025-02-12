@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.intranet.models.IdClasses.TbEspecialidadId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 
-@Table(name = "tbEspecialidad")
+@Table(name = "tbEspecialidad", schema = "Academico")
 public class TbEspecialidad implements Serializable {
 
     @Serial
@@ -23,10 +24,6 @@ public class TbEspecialidad implements Serializable {
     @Id
     @Column(name = "especialidad", nullable = false)
     private String especialidad;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carrera", nullable = false)
-    private TbCarrera carrera;
 
     @Column(name = "descripcion")
     private String descripcion;

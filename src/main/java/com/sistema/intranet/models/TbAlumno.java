@@ -23,12 +23,14 @@ public class TbAlumno implements Serializable {
     @Column(name = "alumno", nullable = false)
     private String alumno;
 
-    @ManyToOne
+    @Column(name = "persona", nullable = false)
+    private Integer persona;
+    /*@ManyToOne
     @JoinColumn(name = "persona", nullable = false)
     private TbPersona persona;
 
     @OneToOne(mappedBy = "alumno")
-    private TbAlumnoCarrera alumnoCarrera;
+    private TbAlumnoCarrera alumnoCarrera;*/
 
     @OneToMany(mappedBy = "alumno")
     private List<TbPagoDetalle> pagoDetalles;
