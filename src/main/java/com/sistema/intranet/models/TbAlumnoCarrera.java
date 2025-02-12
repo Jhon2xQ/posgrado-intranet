@@ -1,6 +1,7 @@
 package com.sistema.intranet.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sistema.intranet.models.IdClasses.TbAlumnoCarreraId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,15 +25,16 @@ public class TbAlumnoCarrera implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column (name = "alumno", nullable = false)
-    private String alumno;
+    @ManyToOne
+    @JoinColumn (name = "alumno", nullable = false)
+    private TbAlumno alumno;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "carrera", nullable = false)
     private TbCarrera carrera;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "especialidad", nullable = false)
     private TbEspecialidad especialidad;
 

@@ -1,9 +1,9 @@
 package com.sistema.intranet.repositories;
 
-import com.sistema.intranet.models.TbEspecialidad;
+import com.sistema.intranet.models.TbCurricula;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TbEspecialidadRepository extends JpaRepository<TbEspecialidad, String> {
+public interface CurriculaRepository extends JpaRepository<TbCurricula, Integer> {
 }

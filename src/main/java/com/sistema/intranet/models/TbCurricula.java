@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Setter
 @Entity
 
-@Table(name = "tbCurricula")
+@Table(name = "tbCurricula", schema = "Curricula")
 public class TbCurricula implements Serializable {
 
     @Serial
@@ -34,6 +34,4 @@ public class TbCurricula implements Serializable {
 
     @Column(name = "nombre")
     private String nombre;
-
-
 }

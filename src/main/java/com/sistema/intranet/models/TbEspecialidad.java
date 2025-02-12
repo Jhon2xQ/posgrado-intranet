@@ -1,7 +1,6 @@
 package com.sistema.intranet.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sistema.intranet.models.IdClasses.TbEspecialidadId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +28,6 @@ public class TbEspecialidad implements Serializable {
     private String descripcion;
 
     @OneToMany(mappedBy = "especialidad")
+    @JsonIgnore
     private List<TbAlumnoCarrera> alumnoCarreras;
 }

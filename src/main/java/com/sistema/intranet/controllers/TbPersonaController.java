@@ -1,14 +1,14 @@
 package com.sistema.intranet.controllers;
 
+import com.sistema.intranet.dtos.PersonaDto;
+import com.sistema.intranet.models.TbAlumno;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.models.TbPersona;
-import com.sistema.intranet.services.TbAlumnoCarreraService;
-import com.sistema.intranet.services.TbPersonaService;
+import com.sistema.intranet.services.AlumnoCarreraService;
+import com.sistema.intranet.services.AlumnoService;
+import com.sistema.intranet.services.PersonaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 
@@ -16,19 +16,25 @@ import java.util.List;
 @RequestMapping("/api")
 public class TbPersonaController {
 
-    private final TbPersonaService tbPersonaService;
-    private final TbAlumnoCarreraService tbAlumnoCarreraService;
+    private final PersonaService personaService;
+    private final AlumnoCarreraService alumnoCarreraService;
+    private final AlumnoService alumnoService;
 
     @CrossOrigin
-    @GetMapping("/{persona}")
-    public TbPersona getPersona(@PathVariable Integer persona) {
-        return tbPersonaService.getPersona(persona);
+    @GetMapping("/persona/{persona}")
+    public PersonaDto getPersona(@PathVariable Integer persona) {
+        return personaService.getPersona(persona);
     }
 
     @CrossOrigin
     @GetMapping("/carrera/{alumno}")
     public TbAlumnoCarrera getAlumnoCarrera(@PathVariable String alumno) {
-        return tbAlumnoCarreraService.getAlumnoCarrera(alumno);
+        return alumnoCarreraService.getAlumnoCarrera(alumno);
     }
 
+    @CrossOrigin
+    @GetMapping("/alumno/{alumno}")
+    public TbAlumno getAlumno(@PathVariable String alumno) {
+        return alumnoService.getAlumno(alumno);
+    }
 }

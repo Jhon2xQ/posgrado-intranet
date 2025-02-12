@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 @Setter
 @Entity
 
-@Table(name = "tbPagoDetalle")
+@Table(name = "tbPagoDetalle", schema = "Caja")
 public class TbPagoDetalle implements Serializable {
 
     @Serial
@@ -26,6 +27,7 @@ public class TbPagoDetalle implements Serializable {
 
     @ManyToOne()
     @JoinColumn(name = "alumno", nullable = false)
+    @JsonIgnore
     private TbAlumno alumno;
 
     @Column(name = "semestre")

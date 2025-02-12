@@ -34,7 +34,7 @@ public class TbPersona implements Serializable {
     @Column(name = "nombres")
     private String nombres;
 
-    /*@OneToMany(mappedBy = "persona")
+    @OneToMany(mappedBy = "persona")
     @JsonIgnore
-    private List<TbAlumno> alumnos;*/
+    private List<TbAlumno> alumnos;
 }

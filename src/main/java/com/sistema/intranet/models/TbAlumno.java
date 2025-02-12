@@ -1,5 +1,6 @@
 package com.sistema.intranet.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 
-@Table(name = "tbAlumno")
+@Table(name = "tbAlumno", schema = "Academico")
 public class TbAlumno implements Serializable {
 
     @Serial
@@ -23,15 +24,14 @@ public class TbAlumno implements Serializable {
     @Column(name = "alumno", nullable = false)
     private String alumno;
 
-    @Column(name = "persona", nullable = false)
-    private Integer persona;
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "persona", nullable = false)
     private TbPersona persona;
 
-    @OneToOne(mappedBy = "alumno")
-    private TbAlumnoCarrera alumnoCarrera;*/
-
     @OneToMany(mappedBy = "alumno")
     private List<TbPagoDetalle> pagoDetalles;
+
+    @OneToMany(mappedBy = "alumno")
+    @JsonIgnore
+    private List<TbAlumnoCarrera> alumnoCarreras;
 }
