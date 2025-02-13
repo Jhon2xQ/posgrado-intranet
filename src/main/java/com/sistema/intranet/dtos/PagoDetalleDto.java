@@ -9,7 +9,7 @@ import java.util.Date;
 public class PagoDetalleDto {
     private String recibo;
     private String semestre;
-    private BigDecimal monto;
+    private Double monto;
     private String estado;
     private Date fecha;
     private String lugarPago;

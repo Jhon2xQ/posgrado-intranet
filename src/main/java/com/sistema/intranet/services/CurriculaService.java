@@ -15,8 +15,8 @@ public class CurriculaService {
 
     /*=================================MÉTODOS=================================*/
 
-    //Obtener-datos-de-la-curricula-----------------------------
-    public CurriculaDto getCurricula(Integer curricula) {
-        return curriculaMapper.map(curriculaRepository.findById(curricula), CurriculaDto.class);
+    //Obtener-datos-de-la-curricula------------------------------
+    public CurriculaDto getCurricula(Integer curricula, String carrera) {
+        return curriculaMapper.map(curriculaRepository.findByCurriculaAndCarrera(curricula, carrera), CurriculaDto.class);
     }
 }

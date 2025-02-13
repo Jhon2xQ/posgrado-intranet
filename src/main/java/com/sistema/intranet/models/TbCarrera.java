@@ -23,7 +23,7 @@ public class TbCarrera implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "carrera", nullable = false)
+    @Column(name = "carrera")
     private String carrera;
 
     @Column(name = "nombre")
@@ -31,8 +31,4 @@ public class TbCarrera implements Serializable {
 
     @Column(name = "tipo_carrera")
     private String tipoCarrera;
-
-    @OneToMany(mappedBy = "carrera")
-    @JsonIgnore
-    private List<TbAlumnoCarrera> alumnoCarreras;
 }

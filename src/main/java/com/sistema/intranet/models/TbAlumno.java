@@ -21,17 +21,9 @@ public class TbAlumno implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "alumno", nullable = false)
+    @Column(name = "alumno")
     private String alumno;
 
-    @ManyToOne
-    @JoinColumn(name = "persona", nullable = false)
-    private TbPersona persona;
-
-    @OneToMany(mappedBy = "alumno")
-    private List<TbPagoDetalle> pagoDetalles;
-
-    @OneToMany(mappedBy = "alumno")
-    @JsonIgnore
-    private List<TbAlumnoCarrera> alumnoCarreras;
+    @JoinColumn(name = "persona")
+    private Integer persona;
 }

@@ -23,10 +23,10 @@ public class TbCurricula implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "curricula", nullable = false)
+    @Column(name = "curricula")
     private Integer curricula;
 
-    @Column(name = "carrera", nullable = false)
+    @Column(name = "carrera")
     private String carrera;
 
     @Column(name = "estado")

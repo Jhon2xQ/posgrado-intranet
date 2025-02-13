@@ -25,28 +25,25 @@ public class TbAlumnoCarrera implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @ManyToOne
-    @JoinColumn (name = "alumno", nullable = false)
-    private TbAlumno alumno;
+    @Column(name = "alumno")
+    private String alumno;
 
     @Id
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "carrera", nullable = false)
-    private TbCarrera carrera;
+    @Column(name = "carrera")
+    private String carrera;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "especialidad", nullable = false)
-    private TbEspecialidad especialidad;
+    @Column(name = "especialidad")
+    private String especialidad;
 
     @Column(name = "curricula")
     private Integer curricula;
 
-    @Column(name = "estado_alumno", nullable = false)
+    @Column(name = "estado_alumno")
     private Integer estadoAlumno;
 
-    @Column(name = "semestre_ingreso", nullable = false)
+    @Column(name = "semestre_ingreso")
     private String semestreIngreso;
 
     @Column(name = "monto_maestria")
-    private BigDecimal montoMaestria;
+    private Double montoMaestria;
 }

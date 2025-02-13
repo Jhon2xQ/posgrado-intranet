@@ -21,8 +21,7 @@ public class TbPersona implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "persona", nullable = false)
+    @Column(name = "persona")
     private Integer persona;
 
     @Column(name = "apellido_paterno")
@@ -33,8 +32,4 @@ public class TbPersona implements Serializable {
 
     @Column(name = "nombres")
     private String nombres;
-
-    @OneToMany(mappedBy = "persona")
-    @JsonIgnore
-    private List<TbAlumno> alumnos;
 }

@@ -21,13 +21,9 @@ public class TbEspecialidad implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "especialidad", nullable = false)
+    @Column(name = "especialidad")
     private String especialidad;
 
     @Column(name = "descripcion")
     private String descripcion;
-
-    @OneToMany(mappedBy = "especialidad")
-    @JsonIgnore
-    private List<TbAlumnoCarrera> alumnoCarreras;
 }

@@ -25,16 +25,14 @@ public class TbPagoDetalle implements Serializable {
     @Column(name = "recibo")
     private String recibo;
 
-    @ManyToOne()
-    @JoinColumn(name = "alumno", nullable = false)
-    @JsonIgnore
-    private TbAlumno alumno;
+    @Column(name = "alumno")
+    private String alumno;
 
     @Column(name = "semestre")
     private String semestre;
 
     @Column(name = "monto")
-    private BigDecimal monto;
+    private Double monto;
 
     @Column(name = "estado")
     private String estado;
