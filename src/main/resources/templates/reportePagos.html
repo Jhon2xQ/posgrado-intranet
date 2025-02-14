@@ -3,19 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1">
     <title>Intranet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body class="bg-black">
-<div class="container mx-auto bg-blue-100">
+<div class="container mx-auto bg-blue-100 scale-90">
 
     <!-- ============================================================================================================ -->
     <!-- =================================================Encabezado================================================ -->
     <!-- ============================================================================================================ -->
 
-    <div class="bg-[#6870A3] text-white px-6 py-3 pr-10 flex justify-between items-center w-full h-24">
+    <div class="bg-[#6870A3] text-white px-6 py-3 pr-10 flex justify-between items-center w-full h-24"  >
         <!-- Logo y botones -->
         <div class="flex items-center space-x-3">
             <img th:src="@{/images/Intranet-01.png}" alt="logo" class="h-24 object-contain">
@@ -90,6 +91,7 @@
 
         <div class="m-auto grid grid-cols-2 gap-8">
 
+            <!---------------------------Información-del-alumno--------------------------->
             <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
                 <!-- Encabezado -->
                 <div class="bg-gray-200 px-4 py-2 font-bold text-center">
@@ -142,15 +144,16 @@
             </div>
 
 
-
-
         </div>
+
+        <hr class="mt-6 border border-white shadow-2xl">
 
         <!-- ============================================================================================================ -->
         <!-- ============================================Información Inferior============================================ -->
         <!-- ============================================================================================================ -->
 
         <div class="m-auto">
+
             <!-- Encabezado -->
             <div class="mt-6 bg-[#6870A3] text-white text-center p-3 rounded-t-lg text-lg font-bold">
                 INFORMACIÓN DE PAGOS
@@ -158,10 +161,10 @@
 
             <!-- Contenedor FLEX para alinear los elementos horizontalmente -->
             <div class="flex mt-4 space-x-6 text-center">
+
                 <!-- Detalle de pagos -->
                 <div class="overflow-hidden flex-1 overflow-y-auto" style="max-height: calc(8 * 3rem);">
                     <table class="table-auto w-full border-separate border-spacing-y-2">
-                        <!-- Encabezado fijo -->
                         <thead class="bg-gray-200 text-gray-700 sticky top-0">
                         <tr>
                             <th class="p-3">FECHA PAGO</th>
@@ -172,9 +175,8 @@
                             <th class="p-3">ESTADO</th>
                         </tr>
                         </thead>
-                        <!-- Contenido con espacio entre filas -->
-                        <tbody>
-                        <tr th:each="pago : ${reporte.pagoDetalle}" class="bg-white hover:bg-gray-100 rounded-lg">
+                        <tbody class="bg-transparent">
+                        <tr th:each="pago : ${reporte.pagoDetalle}" class="bg-white hover:bg-gray-200 rounded-lg">
                             <td class="p-3" th:text="${#dates.format(pago.getFecha(), 'dd/MM/yyyy')}"></td>
                             <td class="p-3" th:text="${pago.getSemestre()}"></td>
                             <td class="p-3" th:text="${pago.getRecibo()}"></td>
@@ -184,52 +186,81 @@
                         </tr>
                         </tbody>
                     </table>
+
+
                 </div>
-
-
 
                 <!-- Resumen General -->
-                <div class="bg-white shadow-md rounded-lg p-4 w-1/3 border text-left h-64">
-                    <h3 class="text-lg font-bold mb-3">Resumen General:</h3>
-                    <p class="italic"><strong>Costo total programa: S/.</strong> <span th:text="${reporte.resumenGeneral.getTotalPagoPrograma()}"></span></p>
-                    <hr class="my-2">
-                    <p class="italic"><strong>Total pagos realizados: S/.</strong> <span th:text="${reporte.resumenGeneral.getTotalPagosRealizados()}"></span></p>
-                    <hr class="my-2">
-                    <p class="font-bold text-green-600 text-lg">
-                        Total deuda hoy: S/. <span th:text="${reporte.resumenGeneral.getTotalPagoPrograma() - reporte.resumenGeneral.getTotalPagosRealizados()}"></span>
-                    </p>
+                <div class="bg-white text-left shadow-md rounded-lg p-6 w-1/4 border border-[#6870A3] h-64 flex flex-col justify-center">
+                    <h3 class="text-lg font-bold mb-5">Resumen General:</h3>
+
+                    <div class="flex justify-between items-center">
+                        <p class="w-2/3 min-w-[130px]">Costo total programa:</p>
+                        <span class="flex-1 font-bold" th:text="${'S/. ' + reporte.resumenGeneral.getTotalPagoPrograma()}"></span>
+                    </div>
+                    <hr class="my-3">
+
+                    <div class="flex justify-between items-center">
+                        <p class="w-2/3 min-w-[130px]">Total pagos realizados:</p>
+                        <span class="flex-1 font-bold" th:text="${'S/. ' + reporte.resumenGeneral.getTotalPagosRealizados()}"></span>
+                    </div>
+                    <hr class="my-3">
+
+                    <div class="flex justify-between items-center text-lg">
+                        <p class="w-2/3 min-w-[130px]">Total deuda hoy:</p>
+                        <span class="flex-1 text-green-600 font-bold" th:text="${'S/. ' + (reporte.resumenGeneral.getTotalPagoPrograma() - reporte.resumenGeneral.getTotalPagosRealizados())}"></span>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
 
-    <!--===============FOOTER-->
-    <footer class="mt-6 bg-[#6870A3] text-white text-sm p-4 h-24">
-        <div class="container mx-auto flex justify-between items-center">
+    <!-- ============================================================================================================ -->
+    <!-- ============================================FOOTER========================================================== -->
+    <!-- ============================================================================================================ -->
+
+    <footer class="mt-6 bg-[#6870A3] text-white p-12 h-24 flex items-center">
+        <div class="container mx-auto flex justify-start items-center w-full space-x-16">
             <!-- Copyright -->
-            <div class="flex-1 text-center md:text-left">
-                © Copyright 2025. Todos los derechos reservados.
+            <div class="text-left pl-16">
+                <strong>© Copyright 2025. Todos los derechos reservados.</strong>
             </div>
 
             <!-- Separador -->
-            <div class="hidden md:block w-px h-6 bg-white mx-4"></div>
+            <div class="hidden md:block w-px h-16 bg-white mx-4"></div>
 
             <!-- Información de contacto -->
-            <div class="flex-1 text-center md:text-right space-y-1">
-                <strong class="block">Información de contacto:</strong>
-                <div class="flex justify-center md:justify-end items-center space-x-2">
-                    <span>Dirección: Av. Paseo de la República 6236 oficina 101. Miraflores - Lima (Perú).</span>
+            <div class="text-left space-y-1 flex items-center space-x-6">
+                <div><strong>Información de contacto:</strong></div>
+                <div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Dirección: Paraninfo Universitario (Plaza de Armas) Cusco - Perú - América Latina</span>
+                    </div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Teléfono: 051-084-232398/ ANEXO 2109, 2111, 2112</span>
+                    </div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                            <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                        </svg>
+                        <span>Correo: posgrado@unsaac.edu.pe</span>
+                    </div>
                 </div>
-                <div class="flex justify-center md:justify-end items-center space-x-2">
-                    <span>Teléfono: (01) 717-2663</span>
-                </div>
-                <div class="flex justify-center md:justify-end items-center space-x-2">
-                    <span>📧 <a href="mailto:recepcion@conareme.org.pe" class="underline">recepcion@conareme.org.pe</a></span>
-                </div>
+
             </div>
         </div>
     </footer>
+
+
 
 
 </div>
