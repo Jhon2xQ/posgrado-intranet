@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class PagosController {
     private final GeneralPagosService generalPagosService;
 
-    @GetMapping("/pagos/{alumno}/{persona}")
-    public String mostrarReportePagos(@PathVariable String alumno, @PathVariable Integer persona, Model model) {
-        ReportePagosDto reporte = generalPagosService.getReportePagos(alumno, persona);
+    @GetMapping("/pagos")
+    public String mostrarReportePagos(Model model) {
+        ReportePagosDto reporte = generalPagosService.getReportePagos("202190", 1000);
         model.addAttribute("reporte", reporte);
-        return "reportePagos"; // Nombre del archivo HTML en "src/main/resources/templates/"
+        return "reportePagos";
     }
 }

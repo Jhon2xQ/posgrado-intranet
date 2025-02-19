@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intranet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-black">
+<div class="lg:container lg:mx-auto bg-blue-100 lg:scale-90 w-screen">
+
+    <!-- ============================================================================================================ -->
+    <!-- =================================================Encabezado================================================ -->
+    <!-- ============================================================================================================ -->
+
+    <header x-data="{ mobileMenuOpen: false }" class="bg-[#6870A3] text-white px-6 py-3 pr-10 w-full md:h-24 relative">
+
+        <div class="flex justify-between items-center h-full">
+            <!-- Sección izquierda: Logo (siempre visible) -->
+            <div class="flex items-center">
+                <img src="/images/Intranet-010000.png" alt="logo" class="h-24 object-contain">
+            </div>
+
+            <!-- Centro: Navegación para desktop (visible en lg y superiores) -->
+            <div class="hidden lg:flex items-center space-x-2 mr-auto">
+                <!-- Botón Procesos -->
+                <button class="bg-purple-200 text-indigo-900 px-4 py-2 rounded-l-lg font-semibold">
+                    Procesos
+                </button>
+                <!-- Botón Reportes con dropdown -->
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open" class="bg-purple-200 text-indigo-900 px-4 py-2 rounded-r-lg font-semibold flex items-center space-x-2">
+                        <span>Reportes</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 bg-white text-black rounded shadow-lg w-40">
+                        <a href="/pagos" class="block px-4 py-2 hover:bg-gray-200">Reporte Pagos</a>
+                        <a href="/reporte-notas" class="block px-4 py-2 hover:bg-gray-200">Reporte Notas</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Derecha: Enlaces externos, usuario y botón hamburguesa -->
+            <div class="flex items-center space-x-8">
+                <!-- Enlaces externos (solo en desktop) -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="https://servicios.unsaac.edu.pe/recaudacion/" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center space-x-2 hover:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+                            <path fill-rule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Pagos UNSAAC</span>
+                    </a>
+                    <a href="https://tramite.unsaac.edu.pe/tramite/virtual" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center space-x-2 hover:text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                        </svg>
+                        <span>Trámite documentario</span>
+                    </a>
+                </div>
+
+                <!-- Menú de usuario (siempre visible) -->
+                <div x-data="{ open: false }" class="relative">
+                    <div @click="open = !open" class="flex items-center space-x-2 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10">
+                            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 bg-white text-black rounded shadow-lg w-32">
+                        <a href="/perfil" class="block px-4 py-2 hover:bg-gray-200">Perfil</a>
+                        <a href="/logout" class="block px-4 py-2 hover:bg-gray-200">Salir</a>
+                    </div>
+                </div>
+
+                <!-- Botón hamburguesa para móviles (visible solo en pantallas menores a lg) -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú móvil desplegable (visible solo en móviles) -->
+        <div
+                x-show="mobileMenuOpen"
+                @click.away="mobileMenuOpen = false"
+                class="lg:hidden absolute top-full left-0 w-full z-10">
+            <ul class="bg-[#6870A3]">
+                <li>
+                    <button class="w-full text-left bg-purple-200 text-indigo-900 px-4 py-2 hover:bg-purple-300">
+                        Procesos
+                    </button>
+                </li>
+                <li x-data="{ openReportes: false }" class="">
+                    <button @click="openReportes = !openReportes" class="w-full text-left bg-purple-200 text-indigo-900 px-4 py-2 flex justify-between items-center hover:bg-purple-300">
+                        <span>Reportes</span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             :class="{ 'transform rotate-180': openReportes }"
+                             class="w-5 h-5 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                    <ul x-show="openReportes" class="ml-4">
+                        <li>
+                            <a href="/pagos" class="block text-indigo-900 px-4 py-2 hover:bg-white">
+                                Reporte Pagos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/notas" class="block text-indigo-900 px-4 py-2 hover:bg-white">
+                                Reporte Notas
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://servicios.unsaac.edu.pe/recaudacion/" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center space-x-2 block text-indigo-900 px-4 py-2 hover:bg-purple-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M4.5 3.75a3 3 0 0 0-3 3v.75h21v-.75a3 3 0 0 0-3-3h-15Z" />
+                            <path fill-rule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-7.5Zm-18 3.75a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5h-6a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Pagos UNSAAC</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://tramite.unsaac.edu.pe/tramite/virtual" target="_blank" rel="noopener noreferrer"
+                       class="flex items-center space-x-2 block text-indigo-900 px-4 py-2 hover:bg-purple-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                        </svg>
+                        <span>Trámite documentario</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+
+    <p>
+        dashboard
+    </p>
+
+
+    <!-- ============================================================================================================ -->
+    <!-- ============================================FOOTER========================================================== -->
+    <!-- ============================================================================================================ -->
+
+    <footer class="mt-6 bg-[#6870A3] text-white lg:h-24 flex items-center">
+        <div class="my-4 container mx-auto flex flex-col lg:flex-row lg:items-center justify-center lg:justify-start w-full lg:space-x-16 space-y-4 lg:space-y-0">
+            <!-- Copyright -->
+            <div class="lg:text-left text-center lg:pl-16 space-y-4 lg:space-y-0">
+                <strong>© Copyright 2025. Todos los derechos reservados.</strong>
+            </div>
+
+            <!-- Separador -->
+            <div class="block lg:w-px h-px w-9/10 lg:h-16 bg-white mx-8"></div>
+
+            <!-- Información de contacto -->
+            <div class="text-left space-y-1 md:flex items-center space-x-6 mx-8 md:mx-0">
+                <div><strong>Información de contacto:</strong></div>
+                <div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Dirección: Paraninfo Universitario (Plaza de Armas) Cusco - Perú - América Latina</span>
+                    </div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" />
+                        </svg>
+                        <span>Teléfono: 051-084-232398/ ANEXO 2109, 2111, 2112</span>
+                    </div>
+                    <div class="flex justify-start items-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                            <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+                            <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+                        </svg>
+                        <span>Correo: posgrado@unsaac.edu.pe</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+
+
+
+</div>
+</body>
+</html>
