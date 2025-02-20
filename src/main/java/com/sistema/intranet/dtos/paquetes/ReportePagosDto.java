@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 
 public class ReportePagosDto {
+    private String codigo;
     private PersonaDto persona;
     private CarreraDto carrera;
     private EspecialidadDto especialidad;

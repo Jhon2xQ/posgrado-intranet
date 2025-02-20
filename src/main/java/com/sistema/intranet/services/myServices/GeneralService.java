@@ -30,6 +30,7 @@ public class GeneralService {
     public ReportePagosDto getReportePagosDetails(String alumno, Integer persona){
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(alumno);
         return new ReportePagosDto(
+                alumno,
                 personaService.getPersona(persona),
                 carreraService.getCarrera(alumnoCarrera.getCarrera()),
                 especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
