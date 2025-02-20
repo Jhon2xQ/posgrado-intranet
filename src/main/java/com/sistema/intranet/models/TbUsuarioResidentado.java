@@ -25,15 +25,12 @@ public class TbUsuarioResidentado implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "codigo")
-    private String codigo;
+    @Column(name = "usuario")
+    private String usuario;
 
     @Column(name = "contraseña")
     private String contrasenia;
 
-    @Column(name = "perfil")
-    private Integer perfil;
-
-    @Column(name = "activo")
-    private Boolean activo;
+    @Column(name = "estado")
+    private Boolean estado;
 }

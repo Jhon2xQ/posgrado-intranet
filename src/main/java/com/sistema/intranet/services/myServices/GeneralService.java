@@ -1,26 +1,33 @@
 package com.sistema.intranet.services.myServices;
-
-import com.sistema.intranet.dtos.PagoDetalleDto;
 import com.sistema.intranet.dtos.paquetes.ReportePagosDto;
 import com.sistema.intranet.dtos.paquetes.ResumenGPDto;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.services.*;
+import com.sistema.intranet.services.myServices.UserDetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
-public class GeneralPagosService {
+public class GeneralService {
     private final PersonaService personaService;
     private final CarreraService carreraService;
     private final EspecialidadService especialidadService;
     private final PagoDetalleService pagoDetalleService;
     private final CurriculaService curriculaService;
     private final AlumnoCarreraService alumnoCarreraService;
+    private final AuthService authService;
 
-    public ReportePagosDto getReportePagos(String alumno, Integer persona){
+    /*=================================MÉTODOS=================================*/
+
+    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    public ReportePagosDto getReportePagos(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        return getReportePagosDetails(user.getUsername(), user.getPersona());
+    }
+
+    //Obtener-datos-generales-detallados-para-la-interfaz-pagos-------------------
+    public ReportePagosDto getReportePagosDetails(String alumno, Integer persona){
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(alumno);
         return new ReportePagosDto(
                 personaService.getPersona(persona),

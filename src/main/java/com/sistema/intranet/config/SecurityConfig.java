@@ -1,6 +1,6 @@
 package com.sistema.intranet.config;
 
-import com.sistema.intranet.services.myServices.UsuarioResidentadoService;
+import com.sistema.intranet.services.myServices.UserDetails.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 public class SecurityConfig {
 
-    private final UsuarioResidentadoService usuarioResidentadoService;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -33,7 +33,7 @@ public class SecurityConfig {
                 })
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/login").permitAll();
-                    httpForm.defaultSuccessUrl("/dashboard");
+                    httpForm.defaultSuccessUrl("/dashboard", true);
                 })
                 .logout(LogoutConfigurer::permitAll);
         return httpSecurity.build();
@@ -42,7 +42,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return usuarioResidentadoService;
+        return customUserDetailsService;
     }
 
     @Bean
