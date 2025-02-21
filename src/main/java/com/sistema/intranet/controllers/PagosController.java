@@ -1,6 +1,6 @@
 package com.sistema.intranet.controllers;
 
-import com.sistema.intranet.dtos.paquetes.ReportePagosDto;
+import com.sistema.intranet.dtos.paquetes.SeguimientoPagosDto;
 import com.sistema.intranet.services.myServices.GeneralService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ public class PagosController {
 
     @GetMapping("/pagos")
     public String mostrarReportePagos(Model model) {
-        ReportePagosDto reporte = generalService.getReportePagos();
+        SeguimientoPagosDto reporte = generalService.getSeguimientoPagos();
         model.addAttribute("reporte", reporte);
         return "reportePagos";
     }

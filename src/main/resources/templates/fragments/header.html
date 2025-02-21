@@ -10,9 +10,10 @@
         <div class="flex justify-between items-center h-full">
             <!-- Sección izquierda: Logo (siempre visible) -->
             <div class="flex items-center">
-                <img src="/images/Intranet-010000.png" alt="logo" class="h-24 object-contain">
+                <a th:href="@{/dashboard}">
+                    <img th:src="@{/images/image-header.png}" alt="logo" class="h-24 object-contain">
+                </a>
             </div>
-
             <!-- Centro: Navegación para desktop (visible en lg y superiores) -->
             <div class="hidden lg:flex items-center space-x-2 mr-auto">
                 <!-- Botón Procesos -->
@@ -28,8 +29,8 @@
                         </svg>
                     </button>
                     <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 bg-white text-black rounded shadow-lg w-40">
-                        <a href="/pagos" class="block px-4 py-2 hover:bg-gray-200">Reporte Pagos</a>
-                        <a href="/reporte-notas" class="block px-4 py-2 hover:bg-gray-200">Reporte Notas</a>
+                        <a th:href="@{/pagos}" class="block px-4 py-2 hover:bg-gray-200">Reporte Pagos</a>
+                        <a th:href="@{/reporte-notas}" class="block px-4 py-2 hover:bg-gray-200">Reporte Notas</a>
                     </div>
                 </div>
             </div>
