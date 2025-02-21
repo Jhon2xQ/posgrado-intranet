@@ -1,19 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+<html lang=""
+      layout:decorate="~{layouts/main}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
     <title>Dashboard</title>
 </head>
 
 <body>
-
-<section layout:fragment="content">
-    <h2>Bienvenido al Dashboard</h2>
-    <p>Contenido exclusivo para el dashboard.</p>
-</section>
-
+    <div layout:fragment="content">
+        <div class="flex justify-between">
+            <!-- izquierda -->
+            <div class="w-1/2">
+                <!-- datos-del-alumno -->
+                <div>
+                    <h2 class="text-gray-600 italic text-lg">Bienvenido</h2>
+                    <h1 class="text-2xl font-semibold italic">CARLOS ENRIQUE</h1>
+                </div>
+                <!-- comunicados -->
+                <div>
+                    <h3 class="bg-purple-200 text-purple-700 px-4 py-2 mt-4 rounded-lg font-bold">COMUNICADOS</h3>
+                    <div class="mt-4 space-y-3">
+                        <div class="bg-gray-100 p-3 rounded-lg">• Desde el 4 al 27 de febrero no habrá atención en ...</div>
+                        <div class="bg-gray-100 p-3 rounded-lg">• Se ampliará la fecha de pagos hasta el 2 de marzo.</div>
+                        <div class="bg-gray-100 p-3 rounded-lg">• Para corrección de datos comuníquese con ...</div>
+                        <div class="bg-gray-100 p-3 rounded-lg">• Las matrículas para el 2025-I finalizan el 28 de febrero.</div>
+                        <div class="bg-gray-100 p-3 rounded-lg">• Recuerde pagar sus cuotas a tiempo.</div>
+                    </div>
+                </div>
+            </div>
+            <!-- derecha -->
+            <div class="w-1/2 flex justify-center">
+                <!-- enlaces externos -->
+                <div class="bg-white p-4 rounded-lg shadow-md w-64">
+                    <h3 class="font-semibold">¿Qué podrás hacer aquí?</h3>
+                    <ul class="list-disc list-inside text-sm mt-2">
+                        <li>VERIFICAR REPORTE DE NOTAS</li>
+                        <li>VERIFICAR REPORTE DE PAGOS</li>
+                    </ul>
+                    <h4 class="mt-4 font-semibold">Enlaces externos:</h4>
+                    <ul class="text-blue-500 text-sm space-y-1 mt-2">
+                        <li><a href="#">Reglamento Escuela de Posgrado</a></li>
+                        <li><a href="#">Reglamento Escuela de Posgrado</a></li>
+                        <li><a href="#">Reglamento Escuela de Posgrado</a></li>
+                        <li><a href="#">Reglamento Escuela de Posgrado</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

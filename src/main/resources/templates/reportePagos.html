@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main}">
+<html lang=""
+      layout:decorate="~{layouts/main}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
     <title>Pagos</title>
 </head>
 
 <body>
 
-<section layout:fragment="content">
+<div layout:fragment="content">
 
     <!-- ============================================Información Superior============================================ -->
     <div class="m-auto md:grid md:grid-cols-2 md:gap-8">
-
         <!---------------------------Información-del-alumno--------------------------->
-        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
             <!-- Encabezado -->
             <div class="bg-gray-200 px-4 py-2 font-bold text-center">
                 Información del alumno
@@ -29,19 +27,22 @@
                 </div>
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-30 min-w-[130px]">Nombre:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.persona.nombres+' '+reporte.persona.getApellidoPaterno()+' '+reporte.persona.getApellidoMaterno()}"></span>
+                    <span class="text-left flex-1"
+                          th:text="${
+                          reporte.persona.nombres+' '+
+                          reporte.persona.getApellidoPaterno()+' '+
+                          reporte.persona.getApellidoMaterno()}"/>
                 </div>
                 <div class="flex py-2">
                     <strong class="pl-5 w-30 min-w-[130px]">Programa:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.getCarrera().getNombre()+' '+reporte.getEspecialidad().getDescripcion()}"></span>
+                    <span class="text-left flex-1"
+                          th:text="${reporte.getCarrera().getNombre()+' '+reporte.getEspecialidad().getDescripcion()}"/>
                 </div>
             </div>
         </div>
 
-
-
         <!---------------------------Información-del-académica--------------------------->
-        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
             <!-- Encabezado -->
             <div class="bg-gray-200 px-4 py-2 font-bold text-center">
                 Información académica
@@ -66,12 +67,11 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
     <!-- linea-separadora-->
     <hr class="mt-6 border border-white shadow-2xl">
+    <!-- linea-separadora-->
 
     <!-- ============================================Información Inferior============================================ -->
     <div class="m-auto">
@@ -108,8 +108,6 @@
                     </tr>
                     </tbody>
                 </table>
-
-
             </div>
 
             <!-- Resumen General -->
@@ -137,7 +135,7 @@
         </div>
     </div>
 
-</section>
+</div>
 
 </body>
 </html>

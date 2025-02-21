@@ -1,34 +1,32 @@
 <!DOCTYPE html>
-<html
-        xmlns:th="http://www.thymeleaf.org" lang=""
-        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
->
+<html lang=""
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Intranet</title>
+
+    <title>...</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
 <body class="bg-black">
-<div class="lg:container lg:mx-auto bg-blue-100 lg:scale-90 lg:min-h-screen flex flex-col justify-between">
+    <div class="lg:container lg:mx-auto bg-blue-100 lg:scale-90 flex flex-col justify-between">
 
-    <!-- ===========================ENCABEZADO============================ -->
-    <header th:insert="~{fragments/header :: header}"></header>
+        <!-- ===========================ENCABEZADO============================ -->
+        <header th:replace="~{fragments/header :: header}"></header>
 
 
-    <!-- ===========================Cuerpo============================ -->
-    <div class="mx-3 md:mx-12 lg:24">
-        <main layout:fragment="content">
-            <!-- Aquí se insertará el contenido específico -->
+        <!-- ===========================Cuerpo============================ -->
+        <main layout:fragment="content" class="mt-6 mx-3 md:mx-12 mb-auto h-full">
+                <!-- Aquí se insertará el contenido específico -->
         </main>
+
+        <!-- ========================PIE-DE-PÁGINA============================= -->
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+
     </div>
-
-    <!-- ========================PIE-DE-PÁGINA============================= -->
-    <footer th:insert="~{fragments/footer :: footer}"></footer>
-
-</div>
 </body>
 </html>
