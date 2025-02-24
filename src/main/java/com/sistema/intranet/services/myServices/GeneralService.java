@@ -1,5 +1,6 @@
 package com.sistema.intranet.services.myServices;
 import com.sistema.intranet.dtos.paquetes.DashboardDto;
+import com.sistema.intranet.dtos.paquetes.SeguimientoNotasDto;
 import com.sistema.intranet.dtos.paquetes.SeguimientoPagosDto;
 import com.sistema.intranet.dtos.paquetes.ResumenGPDto;
 import com.sistema.intranet.models.TbAlumnoCarrera;
@@ -52,6 +53,24 @@ public class GeneralService {
                         alumnoCarrera.getMontoMaestria(),
                         pagoDetalleService.getTotalPago(alumno)
                 )
+        );
+    }
+
+    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    public SeguimientoNotasDto getSeguimientoNotas(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        return getSeguimientoNotasDetails(user.getUsername(), user.getPersona());
+    }
+
+    //Obtener-datos-generales-detallados-para-la-interfaz-notas-------------------
+    public SeguimientoNotasDto getSeguimientoNotasDetails(String alumno, Integer persona){
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(alumno);
+        return new SeguimientoNotasDto(
+                alumno,
+                personaService.getPersona(persona),
+                carreraService.getCarrera(alumnoCarrera.getCarrera()),
+                especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
+                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())
         );
     }
 }

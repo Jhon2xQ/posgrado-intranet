@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=""
+      layout:decorate="~{layouts/main}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pagos</title>
 </head>
+
 <body>
+
+<div layout:fragment="content">
+
+    <!-- ============================================Información Superior============================================ -->
+    <div class="m-auto md:grid md:grid-cols-2 md:gap-8">
+        <!---------------------------Información-del-alumno--------------------------->
+        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+            <!-- Encabezado -->
+            <div class="bg-gray-200 px-4 py-2 font-bold text-center">
+                Información del alumno
+            </div>
+            <!-- Contenido -->
+            <div class="px-6 flex flex-col justify-center h-full">
+                <div class="flex border-b py-2">
+                    <strong class="pl-5 w-30 min-w-[130px]">Código:</strong>
+                    <span class="text-left flex-1" th:text="${reporte.codigo}"></span>
+                </div>
+                <div class="flex border-b py-2">
+                    <strong class="pl-5 w-30 min-w-[130px]">Nombre:</strong>
+                    <span class="text-left flex-1"
+                          th:text="${
+                          reporte.persona.nombres+' '+
+                          reporte.persona.getApellidoPaterno()+' '+
+                          reporte.persona.getApellidoMaterno()}"/>
+                </div>
+                <div class="flex py-2">
+                    <strong class="pl-5 w-30 min-w-[130px]">Programa:</strong>
+                    <span class="text-left flex-1"
+                          th:text="${reporte.getCarrera().getNombre()+' '+reporte.getEspecialidad().getDescripcion()}"/>
+                </div>
+            </div>
+        </div>
+
+        <!---------------------------Información-del-académica--------------------------->
+        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+            <!-- Encabezado -->
+            <div class="bg-gray-200 px-4 py-2 font-bold text-center">
+                Información académica
+            </div>
+            <!-- Contenido -->
+            <div class="px-6 flex flex-col justify-center h-full">
+                <div class="flex border-b py-2">
+                    <strong class="pl-5 w-48 min-w-[130px]">Tipo programa:</strong>
+                    <span class="text-left flex-1" th:text="${reporte.getCarrera().getTipoCarrera()}"></span>
+                </div>
+                <div class="flex border-b py-2">
+                    <strong class="pl-5 w-48 min-w-[130px]">Curricula:</strong>
+                    <span class="text-left flex-1" th:text="${reporte.getCurricula().getNombre()}"></span>
+                </div>
+                <div class="flex border-b py-2">
+                    <strong class="pl-5 w-48 min-w-[130px]">Estado alumno:</strong>
+                    <span class="text-left flex-1" th:text="REGULAR"></span>
+                </div>
+                <div class="flex py-2">
+                    <strong class="pl-5 w-48 min-w-[130px]">Deudor:</strong>
+                    <span class="text-left flex-1" th:text="NO"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- linea-separadora-->
+    <hr class="mt-6 border border-white shadow-2xl">
+    <!-- linea-separadora-->
+
+    <!-- ============================================Información Inferior============================================ -->
+    <form class="max-w-sm mx-auto flex items-center mt-6">
+        <label for="semestres" class="bg-[#6870A3] text-white px-4 py-2 rounded-l-lg font-medium h-10 flex items-center">
+            Semestre:
+        </label>
+        <select id="semestres" name="semestre" onchange="this.form.submit()"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg
+                   focus:ring-blue-500 focus:border-blue-500 block px-4 h-10">
+            <option value="">ninguno</option>
+            <option>2024-I</option>
+            <option>2024-II</option>
+            <option>2025-I</option>
+        </select>
+    </form>
+
+    <!-- Fragmento de notas -->
+    <div th:replace="~{fragments/notas :: notas}"></div>
+
+</div>
 
 </body>
 </html>

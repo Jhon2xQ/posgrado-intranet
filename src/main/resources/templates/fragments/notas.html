@@ -1,0 +1,11 @@
+<div th:fragment="notas">
+    <div th:if="${notas == null}">
+        <h3>Notas del semestre: <span th:text="${semestreSeleccionado}"></span></h3>
+        <table>
+            <tr>
+                <th>Curso</th>
+                <th>Nota</th>
+            </tr>
+        </table>
+    </div>
+</div>

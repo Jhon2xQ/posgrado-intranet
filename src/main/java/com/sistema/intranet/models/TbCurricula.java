@@ -34,4 +34,10 @@ public class TbCurricula implements Serializable {
 
     @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "nota_aprobacion")
+    private String notaAprobacion;
+
+    @Column(name = "nota_desaprobacion")
+    private String notaDesaprobacion;
 }
