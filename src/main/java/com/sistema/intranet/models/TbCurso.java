@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +33,15 @@ public class TbCurso implements Serializable {
     @Column(name = "carrera")
     private String carrera;
 
+    @Column(name = "especialidad")
+    private String especialidad;
+
+    @Column(name = "grupo")
+    private String grupo;
+
+    @Column(name = "curricula")
+    private Integer curricula;
+
     @Column(name = "fecha_finalizacion")
-    private String fechaFinalizacion;
+    private Date fechaFinalizacion;
 }

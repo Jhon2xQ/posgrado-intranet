@@ -23,10 +23,10 @@ public class NotasController {
         return "reporteNotas";
     }
 
-    @GetMapping("/notas/{semestre}")
+    /*@GetMapping("/notas/{semestre}")
     public String getNotasSemestre(Model model, @PathVariable String semestre){
         DetalleNotasDto notas = null;
         model.addAttribute("notas", notas);
 
-    }
+    }*/
 }

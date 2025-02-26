@@ -33,6 +33,9 @@ public class TbCurriculaCurso implements Serializable {
     @Column(name = "carrera")
     private String carrera;
 
+    @Column(name = "especialidad")
+    private String especialidad;
+
     @Column(name = "curricula")
     private Integer curricula;
 

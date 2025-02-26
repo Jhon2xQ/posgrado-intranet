@@ -37,9 +37,30 @@ public class TbNota implements Serializable {
     @Column(name = "curso")
     private String curso;
 
+    @Column(name = "curso_aux")
+    private String cursoAux;
+
+    @Column(name = "curricula_aux")
+    private Integer curriculaAux;
+
     @Column(name = "semestre")
     private String semestre;
 
+    @Column(name = "carrera")
+    private String carrera;
+
+    @Column(name = "especialidad")
+    private String especialidad;
+
+    @Column(name = "grupo")
+    private String grupo;
+
+    @Column(name = "curricula")
+    private Integer curricula;
+
     @Column(name = "nota")
     private Double nota;
+
+    @Column(name = "tipo_nota")
+    private String tipoNota;
 }

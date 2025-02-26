@@ -1,6 +1,7 @@
 package com.sistema.intranet.config;
 
 import com.sistema.intranet.dtos.*;
+import com.sistema.intranet.dtos.paquetes.NotasCompletoDto;
 import com.sistema.intranet.models.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +39,15 @@ public class ModelMapperConfig {
         return modelMapper;
     }
 
+    private ModelMapper mapperToNota(ModelMapper modelMapper) {
+        modelMapper.typeMap(TbNota.class, NotasCompletoDto.class);
+        return modelMapper;
+    }
+    private ModelMapper mapperToCurriculaCurso(ModelMapper modelMapper) {
+        modelMapper.typeMap(TbCurriculaCurso.class, CurriculaCursoDto.class);
+        return modelMapper;
+    }
+
     @Bean("personaMapper")
     public ModelMapper PersonaModelMapper() {
         return mapperToPersona(this.modelMapper());
@@ -63,4 +73,13 @@ public class ModelMapperConfig {
         return mapperToPagoDetalle(this.modelMapper());
     }
 
+    @Bean("notaMapper")
+    public ModelMapper NotaModelMapper() {
+        return mapperToNota(this.modelMapper());
+    }
+
+    @Bean("curriculaCursoMapper")
+    public ModelMapper CurriculaCursoModelMapper() {
+        return mapperToCurriculaCurso(this.modelMapper());
+    }
 }

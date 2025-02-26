@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CurriculaCursoRepository extends JpaRepository<TbCurriculaCurso, String> {
-    Optional<TbCurriculaCurso> findByCursoAndCarreraAndCurricula(String curso, String carrera, Integer curricula);
+    Optional<TbCurriculaCurso> findByCursoAndCarreraAndEspecialidadAndCurricula(String curso, String carrera, String especialidad, Integer curricula);
 }
