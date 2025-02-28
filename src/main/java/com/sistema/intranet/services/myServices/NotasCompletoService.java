@@ -17,8 +17,29 @@ public class NotasCompletoService {
     private final NotaRepository notaRepository;
     private final CurriculaCursoService curriculaCursoService;
 
-    public List<NotasCompletoDto> getNotas(String alumno, String carrera, String estado) {
-        return notaRepository.findNotasCompletasActivas(alumno, carrera, estado)
+    public List<NotasCompletoDto> getCompletoNotas(String alumno, String carrera) {
+        return notaRepository.findNotasCompletasActivas(alumno, carrera, "A")
+                .stream().map(nota -> new NotasCompletoDto(
+                        //obtener datos del curso que está en CurriculaCurso
+                        curriculaCursoService.getCurriculaCurso(
+                                nota.getCurso(),
+                                nota.getCursoAux(),
+                                nota.getCurriculaAux(),
+                                nota.getSemestre(),
+                                nota.getCarrera(),
+                                nota.getEspecialidad(),
+                                nota.getGrupo(),
+                                nota.getCurricula()),
+                        nota.getSemestre(),
+                        nota.getNota(),
+                        nota.getTipoNota(),
+                        nota.getResolucion(),
+                        nota.getGrupo()
+                )).collect(Collectors.toList());
+    }
+
+    public List<NotasCompletoDto> getNotasUltimaCurricula(String alumno, String carrera, Integer curricula) {
+        return notaRepository.findAllNotasByCurriculaActivas(alumno, carrera, "A", curricula)
                 .stream().map(nota -> new NotasCompletoDto(
                         //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(

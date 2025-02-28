@@ -70,13 +70,22 @@ public class GeneralService {
                 personaService.getPersona(persona),
                 carreraService.getCarrera(alumnoCarrera.getCarrera()),
                 especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
-                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())
+                curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera())
         );
     }
 
     public List<NotasCompletoDto> getCompletoNotas(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
-        return notasCompletoService.getNotas(user.getUsername(), alumnoCarrera.getCarrera(), "A");
+        return notasCompletoService.getCompletoNotas(user.getUsername(), alumnoCarrera.getCarrera());
+    }
+
+    public List<NotasCompletoDto> getNotasActualCurricula(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
+        return notasCompletoService.getNotasUltimaCurricula(
+                user.getUsername(),
+                alumnoCarrera.getCarrera(),
+                curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera()).getCurricula());
     }
 }

@@ -25,7 +25,7 @@ public class NotasController {
             model.addAttribute("reporte", reporte);
         }
         if (!model.containsAttribute("allNotas")) {
-            List<NotasCompletoDto> allNotas = generalService.getCompletoNotas();
+            List<NotasCompletoDto> allNotas = generalService.getNotasActualCurricula();
             model.addAttribute("allNotas", allNotas);
             // Extraer los semestres únicos de las notas
             List<String> semestres = allNotas.stream()
