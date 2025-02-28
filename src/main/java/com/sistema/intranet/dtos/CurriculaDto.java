@@ -7,4 +7,6 @@ public class CurriculaDto {
     private Integer curricula;
     private String estado;
     private String nombre;
+    private Double notaAprobacion;
+    private Double notaDesaprobacion;
 }

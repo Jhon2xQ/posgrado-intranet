@@ -12,4 +12,7 @@ public class NotasCompletoDto {
     private CurriculaCursoDto curso;
     private String semestre;
     private Double nota;
+    private String tipoNota;
+    private String resolucion;
+    private String grupo;
 }

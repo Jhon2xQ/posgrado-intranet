@@ -1,9 +1,7 @@
 package com.sistema.intranet.services;
 
 import com.sistema.intranet.dtos.CurriculaCursoDto;
-import com.sistema.intranet.models.TbCurso;
 import com.sistema.intranet.repositories.CurriculaCursoRepository;
-import com.sistema.intranet.repositories.CursoRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class CurriculaCursoService {
+
     private final CurriculaCursoRepository curriculaCursoRepository;
     private final CursoService cursoService;
     private final ModelMapper curriculaCursoMapper;

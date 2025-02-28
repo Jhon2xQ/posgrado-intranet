@@ -16,6 +16,6 @@ public class AlumnoCarreraService {
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
     public TbAlumnoCarrera getAlumnoCarrera(String alumno) {
-        return alumnoCarreraRepository.findByAlumnoAndEstadoAlumno(alumno, 2).orElseThrow(() -> new RuntimeException("Alumno desactivado"));
+        return alumnoCarreraRepository.findByAlumnoAndEstadoAlumno(alumno, 9).orElseThrow(() -> new RuntimeException("Alumno desactivado"));
     }
 }

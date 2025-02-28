@@ -1,97 +1,120 @@
 <!DOCTYPE html>
 <html lang=""
       layout:decorate="~{layouts/main}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Pagos</title>
 </head>
-
 <body>
-
 <div layout:fragment="content">
+        <!-- Información Superior: Datos del alumno e información académica -->
+        <div class="m-auto md:grid md:grid-cols-2 md:gap-8">
+            <!-- Información del alumno -->
+            <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+                <div class="bg-gray-200 px-4 py-2 font-bold text-center">
+                    Información del alumno
+                </div>
+                <div class="px-6 flex flex-col justify-center h-full">
+                    <div class="flex border-b py-2">
+                        <strong class="pl-5 w-30 min-w-[130px]">Código:</strong>
+                        <span class="text-left flex-1" th:text="${reporte.codigo}"></span>
+                    </div>
+                    <div class="flex border-b py-2">
+                        <strong class="pl-5 w-30 min-w-[130px]">Nombre:</strong>
+                        <span class="text-left flex-1"
+                              th:text="${reporte.persona.nombres + ' ' +
+                                   reporte.persona.getApellidoPaterno() + ' ' +
+                                   reporte.persona.getApellidoMaterno()}"></span>
+                    </div>
+                    <div class="flex py-2">
+                        <strong class="pl-5 w-30 min-w-[130px]">Programa:</strong>
+                        <span class="text-left flex-1"
+                              th:text="${reporte.getCarrera().getNombre() + ' ' +
+                                   reporte.getEspecialidad().getDescripcion()}"></span>
+                    </div>
+                </div>
+            </div>
 
-    <!-- ============================================Información Superior============================================ -->
-    <div class="m-auto md:grid md:grid-cols-2 md:gap-8">
-        <!---------------------------Información-del-alumno--------------------------->
-        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
-            <!-- Encabezado -->
-            <div class="bg-gray-200 px-4 py-2 font-bold text-center">
-                Información del alumno
-            </div>
-            <!-- Contenido -->
-            <div class="px-6 flex flex-col justify-center h-full">
-                <div class="flex border-b py-2">
-                    <strong class="pl-5 w-30 min-w-[130px]">Código:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.codigo}"></span>
+            <!-- Información académica -->
+            <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
+                <div class="bg-gray-200 px-4 py-2 font-bold text-center">
+                    Información académica
                 </div>
-                <div class="flex border-b py-2">
-                    <strong class="pl-5 w-30 min-w-[130px]">Nombre:</strong>
-                    <span class="text-left flex-1"
-                          th:text="${
-                          reporte.persona.nombres+' '+
-                          reporte.persona.getApellidoPaterno()+' '+
-                          reporte.persona.getApellidoMaterno()}"/>
-                </div>
-                <div class="flex py-2">
-                    <strong class="pl-5 w-30 min-w-[130px]">Programa:</strong>
-                    <span class="text-left flex-1"
-                          th:text="${reporte.getCarrera().getNombre()+' '+reporte.getEspecialidad().getDescripcion()}"/>
-                </div>
-            </div>
-        </div>
-
-        <!---------------------------Información-del-académica--------------------------->
-        <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
-            <!-- Encabezado -->
-            <div class="bg-gray-200 px-4 py-2 font-bold text-center">
-                Información académica
-            </div>
-            <!-- Contenido -->
-            <div class="px-6 flex flex-col justify-center h-full">
-                <div class="flex border-b py-2">
-                    <strong class="pl-5 w-48 min-w-[130px]">Tipo programa:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.getCarrera().getTipoCarrera()}"></span>
-                </div>
-                <div class="flex border-b py-2">
-                    <strong class="pl-5 w-48 min-w-[130px]">Curricula:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.getCurricula().getNombre()}"></span>
-                </div>
-                <div class="flex border-b py-2">
-                    <strong class="pl-5 w-48 min-w-[130px]">Estado alumno:</strong>
-                    <span class="text-left flex-1" th:text="REGULAR"></span>
-                </div>
-                <div class="flex py-2">
-                    <strong class="pl-5 w-48 min-w-[130px]">Deudor:</strong>
-                    <span class="text-left flex-1" th:text="NO"></span>
+                <div class="px-6 flex flex-col justify-center h-full">
+                    <div class="flex border-b py-2">
+                        <strong class="pl-5 w-48 min-w-[130px]">Tipo programa:</strong>
+                        <span class="text-left flex-1"
+                              th:text="${reporte.getCarrera().getTipoCarrera()=='M '? 'MAESTRIA': (reporte.getCarrera().getTipoCarrera()== 'D ' ? 'DOCTORADO':'SEGUNDA ESPECIALIDAD')}"></span>
+                    </div>
+                    <div class="flex border-b py-2">
+                        <strong class="pl-5 w-48 min-w-[130px]">Curricula:</strong>
+                        <span class="text-left flex-1" th:text="${reporte.getCurricula().getNombre()}"></span>
+                    </div>
+                    <div class="flex border-b py-2">
+                        <strong class="pl-5 w-48 min-w-[130px]">Estado alumno:</strong>
+                        <span class="text-left flex-1">REGULAR</span>
+                    </div>
+                    <div class="flex py-2">
+                        <strong class="pl-5 w-48 min-w-[130px]">Deudor:</strong>
+                        <span class="text-left flex-1">NO</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- linea-separadora-->
-    <hr class="mt-6 border border-white shadow-2xl">
-    <!-- linea-separadora-->
+        <!-- Separador -->
+        <hr class="mt-6 border border-white shadow-2xl bg-blue-500">
 
-    <!-- ============================================Información Inferior============================================ -->
-    <form class="max-w-sm mx-auto flex items-center mt-6">
-        <label for="semestres" class="bg-[#6870A3] text-white px-4 py-2 rounded-l-lg font-medium h-10 flex items-center">
-            Semestre:
-        </label>
-        <select id="semestres" name="semestre" onchange="this.form.submit()"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg
-                   focus:ring-blue-500 focus:border-blue-500 block px-4 h-10">
-            <option value="">ninguno</option>
-            <option>2024-I</option>
-            <option>2024-II</option>
-            <option>2025-I</option>
-        </select>
-    </form>
-
-    <!-- Fragmento de notas -->
-    <div th:replace="~{fragments/notas :: notas}"></div>
-
+        <!-- informacion inferior-->
+        <div class="flex flex-col justify-between">
+            <!-- Información Inferior: Formulario para seleccionar el semestre -->
+            <form class="max-w-sm mx-auto flex items-center mt-6 mb-6" th:action="@{/notas}" method="post">
+                <label for="semestres" class="bg-[#6870A3] text-white px-4 py-2 rounded-l-lg font-medium h-10 flex items-center">
+                    Semestre:
+                </label>
+                <select id="semestres" name="semestre" onchange="this.form.submit()"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg
+                       focus:ring-blue-500 focus:border-blue-500 block px-4 h-10">
+                    <option value="">elegir</option>
+                    <!-- Generar las opciones dinámicamente a partir de los semestres obtenidos -->
+                    <option th:each="s : ${semestres}" th:value="${s}" th:text="${s}"></option>
+                </select>
+            </form>
+            <!-- Detalle de notas -->
+            <div th:if="${notas != null}" class="overflow-hidden flex-1 overflow-y-auto overflow-x-auto mb-6">
+                <table class="table-auto w-full border-separate border-spacing-y-2">
+                    <thead class="bg-gray-200 text-gray-700 sticky top-0 text-center">
+                    <tr>
+                        <th class="p-3">CURSO</th>
+                        <th class="p-3">NOMBRE</th>
+                        <th class="p-3">NOTA</th>
+                        <th class="p-3">CRED.</th>
+                        <th class="p-3">CAT.</th>
+                        <th class="p-3">FECHA FIN</th>
+                        <th class="p-3">TIPO NOTA</th>
+                        <th class="p-3">OBSERVACIONES</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-transparent">
+                    <tr th:each="nota : ${notas}" class="bg-white hover:bg-gray-200 rounded-lg">
+                        <td class="p-3 text-center" th:text="${nota.getCurso().getCurso()+nota.getGrupo()+reporte.getCarrera().getCarrera()}"></td>
+                        <td class="p-3" th:text="${nota.getCurso().getNombre()}"></td>
+                        <td class="p-3 text-center" th:text="${nota.getNota()==0.0?'':#numbers.formatDecimal(nota.getNota(), 0, 0)}"></td>
+                        <td class="p-3 text-center" th:text="${nota.getCurso().getCreditos()}"></td>
+                        <td class="p-3 text-center" th:text="${nota.getCurso().getCategoria()}"></td>
+                        <td class="p-3 text-center" th:text="${#dates.format(nota.getCurso().getFechaFinalizacion(), 'dd/MM/yyyy')}"></td>
+                        <td class="p-3 text-center" th:text="${nota.getTipoNota() == 'N ' ? '' : 'Homologación'}"></td>
+                        <td class="p-3 text-center" th:text="${nota.getResolucion()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div th:if="${notas != null}" class="mb-6">
+            <strong th:text="${reporte.getCurricula().getNombre()+': '}"></strong>
+            <span class="text-left flex-1" th:text="${'(aprobado) nota >= '+reporte.getCurricula().getNotaAprobacion()}"></span>
+        </div>
 </div>
-
 </body>
 </html>

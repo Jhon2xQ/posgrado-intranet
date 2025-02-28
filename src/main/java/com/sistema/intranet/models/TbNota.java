@@ -63,4 +63,7 @@ public class TbNota implements Serializable {
 
     @Column(name = "tipo_nota")
     private String tipoNota;
+
+    @Column(name = "resolucion")
+    private String resolucion;
 }

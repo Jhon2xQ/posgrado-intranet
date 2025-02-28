@@ -20,6 +20,7 @@ public class NotasCompletoService {
     public List<NotasCompletoDto> getNotas(String alumno, String carrera, String estado) {
         return notaRepository.findNotasCompletasActivas(alumno, carrera, estado)
                 .stream().map(nota -> new NotasCompletoDto(
+                        //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(
                                 nota.getCurso(),
                                 nota.getCursoAux(),
@@ -30,7 +31,10 @@ public class NotasCompletoService {
                                 nota.getGrupo(),
                                 nota.getCurricula()),
                         nota.getSemestre(),
-                        nota.getNota()
+                        nota.getNota(),
+                        nota.getTipoNota(),
+                        nota.getResolucion(),
+                        nota.getGrupo()
                 )).collect(Collectors.toList());
     }
 }

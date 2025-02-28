@@ -1,13 +1,12 @@
 package com.sistema.intranet.services.myServices;
-import com.sistema.intranet.dtos.paquetes.DashboardDto;
-import com.sistema.intranet.dtos.paquetes.SeguimientoNotasDto;
-import com.sistema.intranet.dtos.paquetes.SeguimientoPagosDto;
-import com.sistema.intranet.dtos.paquetes.ResumenGPDto;
+import com.sistema.intranet.dtos.paquetes.*;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.services.*;
 import com.sistema.intranet.services.myServices.UserDetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +17,7 @@ public class GeneralService {
     private final PagoDetalleService pagoDetalleService;
     private final CurriculaService curriculaService;
     private final AlumnoCarreraService alumnoCarreraService;
+    private final NotasCompletoService notasCompletoService;
     private final AuthService authService;
 
     /*=================================MÉTODOS=================================*/
@@ -57,7 +57,7 @@ public class GeneralService {
     }
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
-    public SeguimientoNotasDto getSeguimientoNotas(){
+    public SeguimientoNotasDto getInformacionAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
         return getSeguimientoNotasDetails(user.getUsername(), user.getPersona());
     }
@@ -72,5 +72,11 @@ public class GeneralService {
                 especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
                 curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())
         );
+    }
+
+    public List<NotasCompletoDto> getCompletoNotas(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
+        return notasCompletoService.getNotas(user.getUsername(), alumnoCarrera.getCarrera(), "A");
     }
 }
