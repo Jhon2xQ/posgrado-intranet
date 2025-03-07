@@ -76,9 +76,9 @@ public interface NotaRepository extends JpaRepository<TbNota, String> {
              AND N.curso = H.curso 
              AND N.carrera = H.carrera 
              AND N.especialidad = H.especialidad
-        WHERE N.alumno = :alumno
-          AND N.carrera  = :carrera
-          AND N.curricula = :curricula
+        WHERE N.alumno = :alumno                                --obtener las notas del alumno X
+          AND N.carrera  = :carrera                             --de la carrera Y
+          AND COALESCE(H.curricula_h, N.curricula) = :curricula --obtiene los registros que estan con la curricula vigente 
           AND ((H.alumno IS NULL AND N.estado = :estado) -- Sin homologación: se filtra por estado 'A'
                  OR
                 H.alumno IS NOT NULL                     -- Con homologación: se toman los datos de H
@@ -86,7 +86,7 @@ public interface NotaRepository extends JpaRepository<TbNota, String> {
         order by semestre
         """, nativeQuery = true)
     List<TbNota> findAllNotasByCurriculaActivas(@Param("alumno") String alumno,
-                                               @Param("carrera") String carrera,
-                                               @Param("estado") String estado,
-                                               @Param("curricula") Integer curricula);
+                                                @Param("carrera") String carrera,
+                                                @Param("estado") String estado,
+                                                @Param("curricula") Integer curricula);
 }

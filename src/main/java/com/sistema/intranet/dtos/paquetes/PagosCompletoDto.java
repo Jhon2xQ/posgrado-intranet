@@ -1,15 +1,17 @@
 package com.sistema.intranet.dtos.paquetes;
 
+import com.sistema.intranet.dtos.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ResumenGPDto {
-    private Double totalPagoPrograma;
-    private Double totalPagosRealizados;
-    private Double deuda;
+public class PagosCompletoDto {
+    private List<PagoDetalleDto> pagoDetalle;
+    private ResumenGPDto resumenGeneral;
 }

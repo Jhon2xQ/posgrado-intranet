@@ -13,57 +13,54 @@
 
     <!-- ============================================Información Superior============================================ -->
     <div class="m-auto md:grid md:grid-cols-2 md:gap-8">
-        <!---------------------------Información-del-alumno--------------------------->
+        <!-- Información del alumno -->
         <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
-            <!-- Encabezado -->
             <div class="bg-gray-200 px-4 py-2 font-bold text-center">
                 Información del alumno
             </div>
-            <!-- Contenido -->
             <div class="px-6 flex flex-col justify-center h-full">
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-30 min-w-[130px]">Código:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.codigo}"></span>
+                    <span class="text-left flex-1" th:text="${infoAlumno.codigo}"></span>
                 </div>
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-30 min-w-[130px]">Nombre:</strong>
                     <span class="text-left flex-1"
-                          th:text="${
-                          reporte.persona.nombres+' '+
-                          reporte.persona.getApellidoPaterno()+' '+
-                          reporte.persona.getApellidoMaterno()}"/>
+                          th:text="${infoAlumno.persona.nombres + ' ' +
+                                   infoAlumno.persona.getApellidoPaterno() + ' ' +
+                                   infoAlumno.persona.getApellidoMaterno()}"></span>
                 </div>
                 <div class="flex py-2">
                     <strong class="pl-5 w-30 min-w-[130px]">Programa:</strong>
                     <span class="text-left flex-1"
-                          th:text="${reporte.getCarrera().getNombre()+' '+reporte.getEspecialidad().getDescripcion()}"/>
+                          th:text="${infoAlumno.getCarrera().getNombre() + ' ' +
+                                   infoAlumno.getEspecialidad().getDescripcion()}"></span>
                 </div>
             </div>
         </div>
 
-        <!---------------------------Información-del-académica--------------------------->
+        <!-- Información académica -->
         <div class="mt-6 bg-white shadow-md rounded-lg overflow-hidden flex flex-col justify-center">
-            <!-- Encabezado -->
             <div class="bg-gray-200 px-4 py-2 font-bold text-center">
                 Información académica
             </div>
-            <!-- Contenido -->
             <div class="px-6 flex flex-col justify-center h-full">
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-48 min-w-[130px]">Tipo programa:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.getCarrera().getTipoCarrera()}"></span>
+                    <span class="text-left flex-1"
+                          th:text="${infoAlumno.getCarrera().getTipoCarrera()=='M '? 'MAESTRIA': (infoAlumno.getCarrera().getTipoCarrera()== 'D ' ? 'DOCTORADO':'SEGUNDA ESPECIALIDAD')}"></span>
                 </div>
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-48 min-w-[130px]">Curricula:</strong>
-                    <span class="text-left flex-1" th:text="${reporte.getCurricula().getNombre()}"></span>
+                    <span class="text-left flex-1" th:text="${infoAlumno.getCurricula().getNombre()}"></span>
                 </div>
                 <div class="flex border-b py-2">
                     <strong class="pl-5 w-48 min-w-[130px]">Estado alumno:</strong>
-                    <span class="text-left flex-1" th:text="REGULAR"></span>
+                    <span class="text-left flex-1">REGULAR</span>
                 </div>
                 <div class="flex py-2">
-                    <strong class="pl-5 w-48 min-w-[130px]">Deudor:</strong>
-                    <span class="text-left flex-1" th:text="NO"></span>
+                    <strong class="pl-5 w-48 min-w-[130px]">Deuda:</strong>
+                    <span class="text-left flex-1" th:text="${allPagos.getResumenGeneral().getDeuda() > 0.0 ? 'Si':'NO'}"></span>
                 </div>
             </div>
         </div>
@@ -98,7 +95,7 @@
                     </tr>
                     </thead>
                     <tbody class="bg-transparent">
-                    <tr th:each="pago : ${reporte.pagoDetalle}" class="bg-white hover:bg-gray-200 rounded-lg">
+                    <tr th:each="pago : ${allPagos.pagoDetalle}" class="bg-white hover:bg-gray-200 rounded-lg">
                         <td class="p-3" th:text="${#dates.format(pago.getFecha(), 'dd/MM/yyyy')}"></td>
                         <td class="p-3" th:text="${pago.getSemestre()}"></td>
                         <td class="p-3" th:text="${pago.getRecibo()}"></td>
@@ -116,19 +113,19 @@
 
                 <div class="flex justify-between items-center">
                     <p class="w-2/3 min-w-[130px]">Costo total programa:</p>
-                    <span class="flex-1 font-bold" th:text="${'S/. ' + reporte.resumenGeneral.getTotalPagoPrograma()}"></span>
+                    <span class="flex-1 font-bold" th:text="${'S/. ' + allPagos.resumenGeneral.getTotalPagoPrograma()}"></span>
                 </div>
                 <hr class="my-3">
 
                 <div class="flex justify-between items-center">
                     <p class="w-2/3 min-w-[130px]">Total pagos realizados:</p>
-                    <span class="flex-1 font-bold" th:text="${'S/. ' + reporte.resumenGeneral.getTotalPagosRealizados()}"></span>
+                    <span class="flex-1 font-bold" th:text="${'S/. ' + allPagos.resumenGeneral.getTotalPagosRealizados()}"></span>
                 </div>
                 <hr class="my-3">
 
                 <div class="flex justify-between items-center text-lg">
                     <p class="w-2/3 min-w-[130px]">Total deuda hoy:</p>
-                    <span class="flex-1 text-green-600 font-bold" th:text="${'S/. ' + (reporte.resumenGeneral.getTotalPagoPrograma() - reporte.resumenGeneral.getTotalPagosRealizados())}"></span>
+                    <span class="flex-1 text-green-600 font-bold" th:text="${'S/. ' + allPagos.getResumenGeneral().getDeuda()}"></span>
                 </div>
             </div>
 

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @RequiredArgsConstructor
 @Service
 public class CurriculaCursoService {
@@ -21,14 +23,19 @@ public class CurriculaCursoService {
                                                String carrera,
                                                String especialidad,
                                                String grupo,
-                                               Integer curricula)
-    {
+                                               Integer curricula,
+                                               Date fechaFinalizacion) {
         CurriculaCursoDto curriculaCurso = curriculaCursoMapper.map(
                 curriculaCursoRepository.findByCursoAndCarreraAndEspecialidadAndCurricula(curso, carrera, especialidad, curricula),
                 CurriculaCursoDto.class
         );
-        curriculaCurso.setFechaFinalizacion(cursoService.getCurso(cursoAux, semestre, carrera, especialidad, grupo, curriculaAux)
-                .getFechaFinalizacion());
+
+        if (fechaFinalizacion == null) {
+            curriculaCurso.setFechaFinalizacion(cursoService.getCurso(cursoAux, semestre, carrera, especialidad, grupo, curriculaAux)
+                    .getFechaFinalizacion());
+        }else {
+            curriculaCurso.setFechaFinalizacion(fechaFinalizacion);
+        }
         return curriculaCurso;
     }
 }

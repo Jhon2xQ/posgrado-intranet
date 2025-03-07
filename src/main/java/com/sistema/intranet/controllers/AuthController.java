@@ -14,7 +14,7 @@ public class AuthController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        model.addAttribute("alumno", generalService.getInfoAlumno());
+        model.addAttribute("alumno", generalService.getInfoDashboard());
         return "dashboard";
     }
 

@@ -37,7 +37,6 @@ public class SecurityConfig {
                 })
                 .logout(LogoutConfigurer::permitAll);
         return httpSecurity.build();
-
     }
 
     @Bean

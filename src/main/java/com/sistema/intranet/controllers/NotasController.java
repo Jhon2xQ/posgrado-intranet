@@ -1,8 +1,9 @@
 package com.sistema.intranet.controllers;
 
 import com.sistema.intranet.dtos.paquetes.NotasCompletoDto;
-import com.sistema.intranet.dtos.paquetes.SeguimientoNotasDto;
+import com.sistema.intranet.dtos.paquetes.InformacionAlumnoDto;
 import com.sistema.intranet.services.myServices.GeneralService;
+import com.sistema.intranet.services.myServices.NotasCompletoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,43 +14,38 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
-@SessionAttributes({"reporte", "allNotas", "semestres"}) // Almacena en sesión la información del alumno y todas las notas
+@SessionAttributes({"infoAlumno", "allNotas", "semestres", "totalCreditos"}) // Almacena en sesión la información del alumno y todas las notas
 public class NotasController {
 
     private final GeneralService generalService;
+    private final NotasCompletoService notasCompletoService;
 
     @GetMapping("/notas")
     public String mostrarInformacionAlumno(Model model) {
-        if (!model.containsAttribute("reporte")) {
-            SeguimientoNotasDto reporte = generalService.getInformacionAlumno();
-            model.addAttribute("reporte", reporte);
-        }
-        if (!model.containsAttribute("allNotas")) {
-            List<NotasCompletoDto> allNotas = generalService.getNotasActualCurricula();
+        if (!model.containsAttribute("infoAlumno") && !model.containsAttribute("allNotas")) {
+            InformacionAlumnoDto informacionAlumno = generalService.getInformacionAlumno();
+            List<NotasCompletoDto> allNotas = generalService.getNotasAlumnoUltimaCurricula();
+            List<String> semestres = notasCompletoService.getSemestres(allNotas);
+            Integer totalCreditos = notasCompletoService.totalCreditos(allNotas, informacionAlumno.getCurricula().getNotaAprobacion());
+
             model.addAttribute("allNotas", allNotas);
-            // Extraer los semestres únicos de las notas
-            List<String> semestres = allNotas.stream()
-                    .map(NotasCompletoDto::getSemestre)
-                    .distinct()
-                    .collect(Collectors.toList());
             model.addAttribute("semestres", semestres);
+            model.addAttribute("totalCreditos", totalCreditos);
+            model.addAttribute("infoAlumno", informacionAlumno);
         }
         return "reporteNotas";
     }
 
-
-    // Al enviar el formulario, se filtran las notas del semestre seleccionado a partir del conjunto almacenado
     @PostMapping("/notas")
-    public String verNotasPorSemestre(@RequestParam("semestre") String semestre,
-                                      Model model,
+    public String verNotasPorSemestre(@RequestParam("semestre") String semestre, Model model,
                                       @ModelAttribute("allNotas") List<NotasCompletoDto> allNotas) {
         if (semestre != null && !semestre.isEmpty()) {
-            List<NotasCompletoDto> notas = allNotas.stream()
-                    .filter(nota -> nota.getSemestre().equals(semestre))
-                    .collect(Collectors.toList());
+            List<NotasCompletoDto> notas = notasCompletoService.filtrarNotasPorSemestre(allNotas, semestre);
             model.addAttribute("notas", notas);
+            model.addAttribute("semestreSeleccionado", semestre);
         } else {
             model.addAttribute("notas", null);
+            model.addAttribute("semestreSeleccionado", "");
         }
         return "reporteNotas";
     }

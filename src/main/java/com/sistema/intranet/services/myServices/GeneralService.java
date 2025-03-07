@@ -14,7 +14,7 @@ public class GeneralService {
     private final PersonaService personaService;
     private final CarreraService carreraService;
     private final EspecialidadService especialidadService;
-    private final PagoDetalleService pagoDetalleService;
+    private final PagosCompletoService pagosCompletoService;
     private final CurriculaService curriculaService;
     private final AlumnoCarreraService alumnoCarreraService;
     private final NotasCompletoService notasCompletoService;
@@ -23,9 +23,9 @@ public class GeneralService {
     /*=================================MÉTODOS=================================*/
 
     //Obtener-datos-personales-para-la-interfaz-dashboard------------------------
-    public DashboardDto getInfoAlumno(){
+    public DashboardDto getInfoDashboard(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
         return new DashboardDto(
                 personaService.getPersona(user.getPersona()).getNombres(),
                 carreraService.getCarrera(alumnoCarrera.getCarrera()).getNombre(),
@@ -34,58 +34,31 @@ public class GeneralService {
     }
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
-    public SeguimientoPagosDto getSeguimientoPagos(){
+    public InformacionAlumnoDto getInformacionAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
-        return getSeguimientoPagosDetails(user.getUsername(), user.getPersona());
-    }
-
-    //Obtener-datos-generales-detallados-para-la-interfaz-pagos-------------------
-    public SeguimientoPagosDto getSeguimientoPagosDetails(String alumno, Integer persona){
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(alumno);
-        return new SeguimientoPagosDto(
-                alumno,
-                personaService.getPersona(persona),
-                carreraService.getCarrera(alumnoCarrera.getCarrera()),
-                especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
-                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera()),
-                pagoDetalleService.getPagosAlumno(alumno),
-                new ResumenGPDto(
-                        alumnoCarrera.getMontoMaestria(),
-                        pagoDetalleService.getTotalPago(alumno)
-                )
-        );
-    }
-
-    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
-    public SeguimientoNotasDto getInformacionAlumno(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        return getSeguimientoNotasDetails(user.getUsername(), user.getPersona());
-    }
-
-    //Obtener-datos-generales-detallados-para-la-interfaz-notas-------------------
-    public SeguimientoNotasDto getSeguimientoNotasDetails(String alumno, Integer persona){
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(alumno);
-        return new SeguimientoNotasDto(
-                alumno,
-                personaService.getPersona(persona),
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
+        return new InformacionAlumnoDto(
+                user.getUsername(),
+                personaService.getPersona(user.getPersona()),
                 carreraService.getCarrera(alumnoCarrera.getCarrera()),
                 especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
                 curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera())
         );
     }
 
-    public List<NotasCompletoDto> getCompletoNotas(){
+    public List<NotasCompletoDto> getNotasAlumnoUltimaCurricula(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
-        return notasCompletoService.getCompletoNotas(user.getUsername(), alumnoCarrera.getCarrera());
-    }
-
-    public List<NotasCompletoDto> getNotasActualCurricula(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarrera(user.getUsername());
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
         return notasCompletoService.getNotasUltimaCurricula(
                 user.getUsername(),
                 alumnoCarrera.getCarrera(),
                 curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera()).getCurricula());
+    }
+
+    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    public PagosCompletoDto getPagosAlumno(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
+        return pagosCompletoService.getPagosCompleto(user.getUsername(), alumnoCarrera.getMontoMaestria());
     }
 }

@@ -13,4 +13,6 @@ public interface CurriculaRepository extends JpaRepository<TbCurricula, Integer>
     Optional<TbCurricula> findByCurriculaAndCarrera(Integer curricula, String carrera);
 
     Optional<TbCurricula> findTopByCarreraAndEstadoOrderByCurriculaDesc(String carrera, String estado);
+
+    Optional<TbCurricula> findTopByNombreContainingIgnoreCaseAndCarreraAndEstadoOrderByCurriculaDesc(String nombre, String carrera, String estado);
 }

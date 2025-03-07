@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface AlumnoCarreraRepository extends JpaRepository<TbAlumnoCarrera, TbAlumnoCarreraId> {
-    Optional<TbAlumnoCarrera> findByAlumnoAndEstadoAlumno(String alumno, Integer estadoAlumno);
-}
+    Optional<TbAlumnoCarrera> findByAlumnoAndEstadoAlumnoNot(String alumno, Integer estadoAlumno);
+ }
