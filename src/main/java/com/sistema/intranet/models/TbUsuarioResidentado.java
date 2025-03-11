@@ -41,14 +41,4 @@ public class TbUsuarioResidentado implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "idPerfil")
     )
     private Set<TbPerfilResidentado> roles = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "TbUsuarioResidentado{" +
-                "usuario='" + usuario + '\'' +
-                ", contrasenia='" + contrasenia + '\'' +
-                ", estado=" + estado +
-                ", roles=" + roles +
-                '}';
-    }
 }

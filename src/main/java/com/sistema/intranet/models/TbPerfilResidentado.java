@@ -32,12 +32,4 @@ public class TbPerfilResidentado implements Serializable {
 
     @ManyToMany(mappedBy = "roles")
     private Set<TbUsuarioResidentado> usuarios = new HashSet<>();
-
-    @Override
-    public String toString() {
-        return "{" +
-                "idPerfil='" + idPerfil + '\'' +
-                ", nombre='" + nombre + '\'' +
-                '}';
-    }
 }

@@ -23,6 +23,11 @@ public class AuthController {
         return "auth/login";
     }
 
+    @GetMapping("/perfil")
+    public String perfil() {
+        return "perfil";
+    }
+
     /*@GetMapping("/register")
     public String register() {
         return null;
