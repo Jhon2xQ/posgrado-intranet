@@ -1,9 +1,6 @@
 package com.sistema.intranet.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +8,8 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +17,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 
-@Table(name = "tbUsuarioResidentado", schema = "Seguridad")
+@Table(name = "tbResidentadoUsuario", schema = "Seguridad")
 public class TbUsuarioResidentado implements Serializable {
 
     @Serial
@@ -33,4 +32,23 @@ public class TbUsuarioResidentado implements Serializable {
 
     @Column(name = "estado")
     private Boolean estado;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tbResidentadoUsuarioPerfil",
+            schema = "Seguridad",
+            joinColumns = @JoinColumn(name = "usuario"),
+            inverseJoinColumns = @JoinColumn(name = "idPerfil")
+    )
+    private Set<TbPerfilResidentado> roles = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "TbUsuarioResidentado{" +
+                "usuario='" + usuario + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
+                ", estado=" + estado +
+                ", roles=" + roles +
+                '}';
+    }
 }

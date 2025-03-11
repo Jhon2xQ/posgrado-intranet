@@ -2,7 +2,7 @@ package com.sistema.intranet.services.myServices;
 import com.sistema.intranet.dtos.paquetes.*;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.services.*;
-import com.sistema.intranet.services.myServices.UserDetails.CustomUserDetails;
+import com.sistema.intranet.config.UserDetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

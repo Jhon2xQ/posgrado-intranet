@@ -1,6 +1,6 @@
 package com.sistema.intranet.config;
 
-import com.sistema.intranet.services.myServices.UserDetails.CustomUserDetailsService;
+import com.sistema.intranet.config.UserDetails.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers("/images/*").permitAll();
+                            request.requestMatchers("/notas","/pagos").hasRole("ESTUDIANTE");
                             request.anyRequest().authenticated();
                 })
                 .formLogin(httpForm -> {

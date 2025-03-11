@@ -24,12 +24,9 @@ public interface NotaRepository extends JpaRepository<TbNota, String> {
             COALESCE(H.grupo_h, N.grupo)           AS grupo,
             COALESCE(H.curricula_h, N.curricula)   AS curricula,
             COALESCE(H.especialidad_h, N.especialidad) AS especialidad,
-            CASE
-                    WHEN H.alumno IS NOT NULL THEN 'H'
-                    ELSE N.tipo_nota
-                END AS tipo_nota,
+            N.tipo_nota,
             N.nota                                AS nota,
-            H.resolucion
+            COALESCE(H.resolucion, N.resolucion) AS resolucion
         
         FROM [Academico_Maestria].[Seguimiento].[tbNota] AS N
         LEFT JOIN [Academico_Maestria].[Seguimiento].[tbHomologacion] AS H

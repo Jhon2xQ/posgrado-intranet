@@ -1,4 +1,4 @@
-package com.sistema.intranet.services.myServices.UserDetails;
+package com.sistema.intranet.config.UserDetails;
 
 import com.sistema.intranet.repositories.UsuarioResidentadoRepository;
 import com.sistema.intranet.services.AlumnoService;
@@ -18,11 +18,11 @@ public class CustomUserDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
-
         return usuarioResidentadoRepository.findById(usuario)
                 .map(userResidentado -> new CustomUserDetails(
                         userResidentado.getUsuario(),
                         userResidentado.getContrasenia(),
+                        userResidentado.getRoles(),
                         alumnoService.getAlumno(usuario).getPersona()
                 )).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
