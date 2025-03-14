@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -32,4 +33,19 @@ public class TbPersona implements Serializable {
 
     @Column(name = "nombres")
     private String nombres;
+
+    @Column(name = "nro_documento")
+    private String nroDocumento;
+
+    @Column(name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+
+    @Column(name = "e_mail")
+    private String email;
+
+    @Column(name = "direccion")
+    private String direccion;
+
+    @Column(name = "telefono")
+    private String telefono;
 }

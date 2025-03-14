@@ -1,4 +1,5 @@
 package com.sistema.intranet.services.myServices;
+import com.sistema.intranet.dtos.PersonaDto;
 import com.sistema.intranet.dtos.paquetes.*;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.services.*;
@@ -21,6 +22,11 @@ public class GeneralService {
     private final AuthService authService;
 
     /*=================================MÉTODOS=================================*/
+
+    public PersonaDto getInfoPersona() {
+        CustomUserDetails user = authService.getUsuarioAutenticado();
+        return personaService.getPersona(user.getPersona());
+    }
 
     //Obtener-datos-personales-para-la-interfaz-dashboard------------------------
     public DashboardDto getInfoDashboard(){

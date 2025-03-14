@@ -6,42 +6,39 @@
 <head>
     <title>Perfil</title>
     <script>
-        function validarContrasena() {
-            var nueva = document.getElementById("nuevaContrasena").value;
-            var confirmar = document.getElementById("confirmarContrasena").value;
-            var mensaje = document.getElementById("mensajeError");
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirm-password");
 
-            if (nueva !== confirmar) {
-                mensaje.innerText = "Las contraseñas no coinciden";
-                mensaje.classList.remove("hidden");
-                return false;
-            } else {
-                mensaje.classList.add("hidden");
-                return true;
-            }
-        }
+            form.addEventListener("submit", function (event) {
+                if (password.value !== confirmPassword.value) {
+                    event.preventDefault();
+                    alert("Las contraseñas no coinciden.");
+                }
+            });
+        });
     </script>
 </head>
 
 <body>
 <div layout:fragment="content">
     <div class="grid grid-rows-auto gap-4 p-4">
-        <div class="bg-blue-700 text-white p-4 rounded-lg shadow-md">
+        <div class="bg-[#6870A3] text-white p-4 rounded-lg shadow-md">
             <p>
-                Si usted desea modificar los datos mostrados en esta ficha, presione en el botón Modificar y proceda a editar los campos que serán habilitados.
-                Una vez concluida la edición de sus datos, es necesario que presione en el botón Guardar. Eso concluye el proceso de modificación de datos.
-                Si desea salir del modo edición, presione en Cancelar.
+                La siguiente sección muestra sus datos personales. Si encuentra algún error o inconsistencia,
+                por favor comuníquese con el Centro de Cómputo de la Escuela de Posgrado para solicitar la corrección.
             </p>
         </div>
 
         <div class="p-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="lg:grid lg:grid-cols-2 gap-4">
 
                 <!--Perfil de usuario-->
                 <div class="bg-white overflow-hidden shadow rounded-lg border">
                     <div class="px-4 py-5 sm:px-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Perfil de Usuario
+                        <h3 class="text-xl leading-6 font-medium text-gray-900">
+                            Perfil de usuario
                         </h3>
                         <p class="mt-1 max-w-2xl text-sm text-gray-500">
                             Información personal del estudiante
@@ -50,55 +47,48 @@
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
                         <dl class="sm:divide-y sm:divide-gray-200">
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-lg font-medium text-gray-500">
+                                <dt class="text-sm font-medium text-gray-500">
                                     DNI
                                 </dt>
-                                <dd class="mt-1 text-lg text-gray-900 sm:mt-0 sm:col-span-2">
-                                    71723463
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${infoPersona.getNroDocumento()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Nombre completo
                                 </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    John Doe
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${infoPersona.getNombres()+' '+infoPersona.getApellidoPaterno()+' '+infoPersona.getApellidoMaterno()}"></dd>
                             </div>
 
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Fecha Nacimiento
                                 </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    1974-07-24 00:00:00
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${#dates.format(infoPersona.getFechaNacimiento(), 'dd-MM-yyyy')}"></dd>
                             </div>
 
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Correo Electrónico
                                 </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    johndoe@example.com
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${infoPersona.getEmail()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Teléfono
                                 </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    (123) 456-7890
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${infoPersona.getTelefono()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Dirección
                                 </dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    123 Main St<br>
-                                    Anytown, USA 12345
-                                </dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                                    th:text="${infoPersona.getDireccion()}"></dd>
                             </div>
                         </dl>
                     </div>
@@ -106,25 +96,36 @@
 
 
                 <div class="grid grid-rows-auto gap-4">
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <h2 class="text-lg font-bold mb-2">Datos de Usuario</h2>
-                        <form onsubmit="return validarContrasena()">
-                            <label class="block">Usuario:</label>
-                            <input type="text" class="border rounded w-full p-2" value="usuario123" disabled>
-
-                            <label class="block mt-2">Nueva Contraseña:</label>
-                            <input type="password" id="nuevaContrasena" class="border rounded w-full p-2">
-
-                            <label class="block mt-2">Confirmar Nueva Contraseña:</label>
-                            <input type="password" id="confirmarContrasena" class="border rounded w-full p-2">
-
-                            <p id="mensajeError" class="text-red-500 hidden mt-2"></p>
-
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Guardar</button>
+                    <div class="w-full p-6 bg-white rounded-lg shadow md:mt-0 sm:p-8">
+                        <h2 class="mb-1 text-xl leading-6 font-medium text-gray-900">
+                            Cambiar contraseña
+                        </h2>
+                        <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" th:action="@{/cambiarContraseña}" method="post">
+                            <div>
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Nueva contraseña</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                            </div>
+                            <div>
+                                <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900">Confirmar contraseña</label>
+                                <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="newsletter" aria-describedby="newsletter" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300" required="">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="newsletter" class="font-light text-gray-500 ">Aceptar <a class="font-medium text-primary-600 hover:underline " href="#">Terminos y condiciones</a></label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Confirmar</button>
                         </form>
                     </div>
-                    <div class="bg-yellow-300 p-4 rounded-lg shadow-md text-center">
-                        <p>Solo podrá cambiar la contraseña una sola vez cada 30 días.</p>
+
+                    <div class="bg-gray-200 p-4 rounded-lg shadow-md text-center">
+                        <p class="text-sm text-gray-700">
+                            Nota: Solo puede cambiar su contraseña una vez por semestre.
+                            En caso de olvido o perdida de contraseña, comuníquese con centro de cómputo de la Escuela de Posgrado.
+                        </p>
                     </div>
                 </div>
             </div>
