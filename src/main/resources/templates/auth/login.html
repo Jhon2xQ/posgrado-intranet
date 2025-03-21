@@ -27,7 +27,7 @@
 
           <!--logo-->
           <div class="w-full flex justify-center">
-            <img src="/images/image-login.png" alt="logo" class="drop-shadow-lg" style="filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.5));">
+            <img th:src="@{/images/image-login.png}" alt="logo" class="drop-shadow-lg" style="filter: drop-shadow(5px 5px 3px rgba(0, 0, 0, 0.5));">
           </div>
 
           <!--login-->
@@ -37,7 +37,7 @@
 
           <!--contenido-->
           <div class="divide-y divide-gray-200">
-              <form method="post" action="/login" class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+              <form method="post" th:action="@{/login}" class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                 <!-- código -->
                 <div class="relative">
                   <input autocomplete="off" id="codigo" name="username" type="text"
