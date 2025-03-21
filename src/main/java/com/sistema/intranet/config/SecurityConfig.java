@@ -26,7 +26,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                             request.requestMatchers("/images/*").permitAll();
                             request.requestMatchers("/notas","/pagos").hasRole("ESTUDIANTE");
@@ -34,9 +33,15 @@ public class SecurityConfig {
                 })
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/login").permitAll();
-                    httpForm.defaultSuccessUrl("/dashboard", true);
+                    httpForm.successHandler((request, response, authentication) -> {
+                        response.sendRedirect("/dashboard"); // Redirige al dashboard después de autenticarse
+                    });
                 })
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                );
         return httpSecurity.build();
     }
 
