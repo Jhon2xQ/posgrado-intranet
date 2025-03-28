@@ -52,10 +52,10 @@ public class GeneralService {
         );
     }
 
-    public List<NotasCompletoDto> getNotasAlumnoUltimaCurricula(){
+    public List<NotasCompletoDto> getNotasAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
-        return notasCompletoService.getNotasUltimaCurricula(
+        return notasCompletoService.getNotas(
                 user.getUsername(),
                 alumnoCarrera.getCarrera(),
                 alumnoCarrera.getCurricula()

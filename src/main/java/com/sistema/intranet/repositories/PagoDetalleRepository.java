@@ -19,6 +19,7 @@ public interface PagoDetalleRepository extends JpaRepository<TbPagoDetalle, Stri
         SELECT recibo, alumno, semestre, monto, estado, fecha, lugarpago
         FROM [Academico_Maestria].[Caja].[tbPagoDetalle]
         WHERE alumno = :alumno
+        ORDER BY semestre
         """,
             nativeQuery = true)
     List<Object[]> buscarPagosAlumno(@Param("alumno") String alumno);

@@ -20,9 +20,9 @@ public class NotasCompletoService {
     private final CurriculaCursoService curriculaCursoService;
 
 
-    public List<NotasCompletoDto> getNotasUltimaCurricula(String alumno, String carrera, Integer curricula) {
+    public List<NotasCompletoDto> getNotas(String alumno, String carrera, Integer curricula) {
 
-        List<NotasCompletoDto> notasRegular = notaService.getNotasUltimaCurricula(alumno, carrera, curricula)
+        List<NotasCompletoDto> notasRegular = notaService.getNotas(alumno, carrera, curricula)
                 .stream().map(nota -> new NotasCompletoDto(
                         //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(

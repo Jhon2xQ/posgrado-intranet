@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,7 +23,7 @@ public class NotasController {
     public String mostrarInformacionAlumno(Model model) {
         if (!model.containsAttribute("infoAlumno") && !model.containsAttribute("allNotas")) {
             InformacionAlumnoDto informacionAlumno = generalService.getInformacionAlumno();
-            List<NotasCompletoDto> allNotas = generalService.getNotasAlumnoUltimaCurricula();
+            List<NotasCompletoDto> allNotas = generalService.getNotasAlumno();
             List<String> semestres = notasCompletoService.getSemestres(allNotas);
             Integer totalCreditos = notasCompletoService.totalCreditos(allNotas, informacionAlumno.getCurricula().getNotaAprobacion());
 

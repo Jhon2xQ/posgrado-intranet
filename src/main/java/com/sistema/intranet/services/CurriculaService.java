@@ -19,9 +19,4 @@ public class CurriculaService {
     public CurriculaDto getCurricula(Integer curricula, String carrera) {
         return curriculaMapper.map(curriculaRepository.findByCurriculaAndCarrera(curricula, carrera), CurriculaDto.class);
     }
-
-    //Obtener-datos-de-la-ultima-curricula------------------------------
-    public CurriculaDto getUltimaCurricula(String carrera) {
-        return curriculaMapper.map(curriculaRepository.findTopByNombreContainingIgnoreCaseAndCarreraAndEstadoOrderByCurriculaDesc("curricula",carrera, "A"), CurriculaDto.class);
-    }
 }

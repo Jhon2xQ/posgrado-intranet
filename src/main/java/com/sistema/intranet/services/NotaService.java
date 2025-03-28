@@ -12,7 +12,7 @@ import java.util.List;
 public class NotaService {
     private final NotaRepository notaRepository;
 
-    public List<TbNota> getNotasUltimaCurricula(String alumno, String carrera, Integer curricula) {
+    public List<TbNota> getNotas(String alumno, String carrera, Integer curricula) {
         return notaRepository.findAllNotasByCurriculaActivas(alumno, carrera, "A", curricula);
     }
 }
