@@ -48,7 +48,7 @@ public class GeneralService {
                 personaService.getPersona(user.getPersona()),
                 carreraService.getCarrera(alumnoCarrera.getCarrera()),
                 especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
-                curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera())
+                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())
         );
     }
 
@@ -58,7 +58,8 @@ public class GeneralService {
         return notasCompletoService.getNotasUltimaCurricula(
                 user.getUsername(),
                 alumnoCarrera.getCarrera(),
-                curriculaService.getUltimaCurricula(alumnoCarrera.getCarrera()).getCurricula());
+                alumnoCarrera.getCurricula()
+        );
     }
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------

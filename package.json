@@ -1,0 +1,28 @@
+{
+  "name": "intranet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css",
+    "watch": "tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeeEpisodios/posgrado-intranet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BeeEpisodios/posgrado-intranet/issues"
+  },
+  "homepage": "https://github.com/BeeEpisodios/posgrado-intranet#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.9"
+  }
+}
