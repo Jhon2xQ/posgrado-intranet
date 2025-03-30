@@ -51,14 +51,16 @@
                                     DNI
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${infoPersona.getNroDocumento()}"></dd>
+                                    th:text="${infoAlumno.getPersona().getNroDocumento()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Nombre completo
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${infoPersona.getNombres()+' '+infoPersona.getApellidoPaterno()+' '+infoPersona.getApellidoMaterno()}"></dd>
+                                    th:text="${infoAlumno.getPersona().getNombres()+' '+
+                                    infoAlumno.getPersona().getApellidoPaterno()+' '
+                                    +infoAlumno.getPersona().getApellidoMaterno()}"></dd>
                             </div>
 
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -66,7 +68,7 @@
                                     Fecha Nacimiento
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${#dates.format(infoPersona.getFechaNacimiento(), 'dd-MM-yyyy')}"></dd>
+                                    th:text="${#dates.format(infoAlumno.getPersona().getFechaNacimiento(), 'dd-MM-yyyy')}"></dd>
                             </div>
 
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -74,21 +76,21 @@
                                     Correo Electrónico
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${infoPersona.getEmail()}"></dd>
+                                    th:text="${infoAlumno.getPersona().getEmail()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Teléfono
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${infoPersona.getTelefono()}"></dd>
+                                    th:text="${infoAlumno.getPersona().getTelefono()}"></dd>
                             </div>
                             <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">
                                     Dirección
                                 </dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
-                                    th:text="${infoPersona.getDireccion()}"></dd>
+                                    th:text="${infoAlumno.getPersona().getDireccion()}"></dd>
                             </div>
                         </dl>
                     </div>

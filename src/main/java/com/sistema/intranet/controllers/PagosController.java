@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class PagosController {
     private final GeneralService generalService;
     @GetMapping("/pagos")
-    public String mostrarReportePagos(Model model) {
-        if (!model.containsAttribute("infoAlumno")) {
-            InformacionAlumnoDto informacionAlumno = generalService.getInformacionAlumno();
-            model.addAttribute("infoAlumno", informacionAlumno);
-        }
+    public String mostrarReportePagos(Model model, @SessionAttribute("infoAlumno") InformacionAlumnoDto infoAlumno) {
+
         if (!model.containsAttribute("allPagos")) {
             PagosCompletoDto allPagos = generalService.getPagosAlumno();
             model.addAttribute("allPagos", allPagos);
         }
+
+        model.addAttribute("infoAlumno", infoAlumno);
         return "reportePagos";
     }
 }

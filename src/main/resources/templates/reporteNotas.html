@@ -57,7 +57,7 @@
                     </div>
                     <div class="flex py-2">
                         <strong class="pl-5 w-48 min-w-[130px]">Total créditos:</strong>
-                        <span class="text-left flex-1" th:text="${totalCreditos}"></span>
+                        <span class="text-left flex-1" th:text="${allNotas.getTotalCreditos()}"></span>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 <select id="semestres" name="semestre" onchange="this.form.submit()"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg focus:ring-blue-500 focus:border-blue-500 block px-4 h-10">
                     <option value="">elegir</option>
-                    <option th:each="s : ${semestres}"
+                    <option th:each="s : ${allNotas.getSemestres()}"
                             th:value="${s}"
                             th:text="${s}"
                             th:selected="${s == semestreSeleccionado}"></option>

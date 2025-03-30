@@ -1,13 +1,11 @@
 package com.sistema.intranet.services.myServices;
-import com.sistema.intranet.dtos.PersonaDto;
+
 import com.sistema.intranet.dtos.paquetes.*;
 import com.sistema.intranet.models.TbAlumnoCarrera;
 import com.sistema.intranet.services.*;
 import com.sistema.intranet.config.UserDetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -23,39 +21,24 @@ public class GeneralService {
 
     /*=================================MÉTODOS=================================*/
 
-    public PersonaDto getInfoPersona() {
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        return personaService.getPersona(user.getPersona());
-    }
-
-    //Obtener-datos-personales-para-la-interfaz-dashboard------------------------
-    public DashboardDto getInfoDashboard(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
-        return new DashboardDto(
-                personaService.getPersona(user.getPersona()).getNombres(),
-                carreraService.getCarrera(alumnoCarrera.getCarrera()).getNombre(),
-                especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()).getDescripcion()
+    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    public InformacionAlumnoDto getInformacionAlumno(){
+        CustomUserDetails user = authService.getUsuarioAutenticado();                                           //obtener usuario autenticado
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());        //buscar en tbAlumnoCarrera
+        return new InformacionAlumnoDto(
+                user.getUsername(),                                                                             //codigo de alumno
+                personaService.getPersona(user.getPersona()),                                                   //datos personales
+                carreraService.getCarrera(alumnoCarrera.getCarrera()),                                          //datos de carrera
+                especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),                           //datos de especialidad
+                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())         //datos de curricula
         );
     }
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
-    public InformacionAlumnoDto getInformacionAlumno(){
+    public NotasCompletoDto getNotasAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
-        return new InformacionAlumnoDto(
-                user.getUsername(),
-                personaService.getPersona(user.getPersona()),
-                carreraService.getCarrera(alumnoCarrera.getCarrera()),
-                especialidadService.getEspecialidad(alumnoCarrera.getEspecialidad()),
-                curriculaService.getCurricula(alumnoCarrera.getCurricula(), alumnoCarrera.getCarrera())
-        );
-    }
-
-    public List<NotasCompletoDto> getNotasAlumno(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
-        return notasCompletoService.getNotas(
+        return notasCompletoService.getNotasCompleto(
                 user.getUsername(),
                 alumnoCarrera.getCarrera(),
                 alumnoCarrera.getCurricula()
@@ -66,6 +49,9 @@ public class GeneralService {
     public PagosCompletoDto getPagosAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
-        return pagosCompletoService.getPagosCompleto(user.getUsername(), alumnoCarrera.getMontoMaestria());
+        return pagosCompletoService.getPagosCompleto(
+                user.getUsername(),
+                alumnoCarrera.getMontoMaestria()
+        );
     }
 }

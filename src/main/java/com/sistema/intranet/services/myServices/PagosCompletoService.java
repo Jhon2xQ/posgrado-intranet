@@ -15,10 +15,10 @@ public class PagosCompletoService {
     private final PagoDetalleService pagoDetalleService;
 
     public PagosCompletoDto getPagosCompleto(String alumno, Double totalMaestria) {
-        List<PagoDetalleDto> pagos = pagoDetalleService.getPagosAlumno(alumno);
-        Double totalPagado = getTotal(pagos);
-        return new PagosCompletoDto(pagos, new ResumenGPDto(totalMaestria, totalPagado, totalMaestria - totalPagado)
-        );
+        List<PagoDetalleDto> allPagoDetalles = pagoDetalleService.getPagosAlumno(alumno);
+        Double totalPagado = this.getTotal(allPagoDetalles);
+
+        return new PagosCompletoDto(allPagoDetalles, new ResumenGPDto(totalMaestria, totalPagado, totalMaestria - totalPagado));
     }
 
     public Double getTotal(List<PagoDetalleDto> pagos){

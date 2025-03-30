@@ -1,8 +1,12 @@
 package com.sistema.intranet.services.myServices;
 
+import com.sistema.intranet.dtos.CurriculaDto;
+import com.sistema.intranet.dtos.NotaDto;
 import com.sistema.intranet.dtos.paquetes.NotasCompletoDto;
+import com.sistema.intranet.models.TbCurricula;
 import com.sistema.intranet.services.ConvalidacionReconocimientoService;
 import com.sistema.intranet.services.CurriculaCursoService;
+import com.sistema.intranet.services.CurriculaService;
 import com.sistema.intranet.services.NotaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,14 +20,23 @@ import java.util.stream.Stream;
 public class NotasCompletoService {
 
     private final NotaService notaService;
+    private final CurriculaService curriculaService;
     private final ConvalidacionReconocimientoService convalidacionService;
     private final CurriculaCursoService curriculaCursoService;
 
+    public NotasCompletoDto getNotasCompleto(String codigo, String carrera, Integer curricula) {
+        List<NotaDto> notasCompleto = this.getNotas(codigo, carrera, curricula);
+        return new NotasCompletoDto(
+                notasCompleto,
+                this.getSemestres(notasCompleto),
+                this.getTotalCreditos(notasCompleto, curricula, carrera)
+        );
+    }
 
-    public List<NotasCompletoDto> getNotas(String alumno, String carrera, Integer curricula) {
+    public List<NotaDto> getNotas(String alumno, String carrera, Integer curricula) {
 
-        List<NotasCompletoDto> notasRegular = notaService.getNotas(alumno, carrera, curricula)
-                .stream().map(nota -> new NotasCompletoDto(
+        List<NotaDto> notasRegular = notaService.getNotas(alumno, carrera, curricula)
+                .stream().map(nota -> new NotaDto(
                         //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(
                                 nota.getCurso(),
@@ -42,8 +55,8 @@ public class NotasCompletoService {
                         nota.getGrupo())
                 ).toList();
 
-        List<NotasCompletoDto> notasConvalidacion = convalidacionService.getNotasConvalidacionUltimaCurricula(alumno, carrera, curricula)
-                .stream().map(nota -> new NotasCompletoDto(
+        List<NotaDto> notasConvalidacion = convalidacionService.getNotasConvalidacionUltimaCurricula(alumno, carrera, curricula)
+                .stream().map(nota -> new NotaDto(
                         //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(
                                 nota.getCurso(),
@@ -65,20 +78,21 @@ public class NotasCompletoService {
         return Stream.concat(notasRegular.stream(), notasConvalidacion.stream()).collect(Collectors.toList());
     }
 
-    public List<NotasCompletoDto> filtrarNotasPorSemestre(List<NotasCompletoDto> notasCompleto, String semestre) {
-        return notasCompleto.stream()
-                .filter(nota -> nota.getSemestre().equals(semestre))
-                .collect(Collectors.toList());
+    public List<String> getSemestres(List<NotaDto> notasCompleto) {
+        return notasCompleto.stream().map(NotaDto::getSemestre).distinct().collect(Collectors.toList());
     }
 
-    public List<String> getSemestres(List<NotasCompletoDto> notasCompleto) {
-        return notasCompleto.stream().map(NotasCompletoDto::getSemestre).distinct().collect(Collectors.toList());
-    }
-
-    public Integer totalCreditos(List<NotasCompletoDto> notasCompleto, Double notaAprobacion) {
+    public Integer getTotalCreditos(List<NotaDto> notasCompleto, Integer curricula, String carrera) {
+        Double notaAprobacion = curriculaService.getCurricula(curricula, carrera).getNotaAprobacion();
         return notasCompleto.stream()
                 .filter(notas -> notas.getNota() >= notaAprobacion)
                 .mapToInt(notas -> notas.getCurso().getCreditos())
                 .sum();
+    }
+
+    public List<NotaDto> filtrarNotasPorSemestre(List<NotaDto> notasCompleto, String semestre) {
+        return notasCompleto.stream()
+                .filter(nota -> nota.getSemestre().equals(semestre))
+                .collect(Collectors.toList());
     }
 }
