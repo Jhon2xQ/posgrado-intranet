@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,6 +33,9 @@ public class TbUsuarioResidentado implements Serializable {
 
     @Column(name = "estado")
     private Boolean estado;
+
+    @Column(name = "ultimo_cambio_contrasenia")
+    private LocalDateTime ultimoCambioContrasenia;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

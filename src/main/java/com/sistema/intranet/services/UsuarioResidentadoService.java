@@ -5,6 +5,9 @@ import com.sistema.intranet.repositories.UsuarioResidentadoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 @Service
 @RequiredArgsConstructor
 public class UsuarioResidentadoService {
@@ -16,7 +19,14 @@ public class UsuarioResidentadoService {
 
     public void cambiarContrasenia(String usuario, String nuevaContrasenia) {
         TbUsuarioResidentado usuarioResidentado = this.getUsuarioResidentado(usuario);
+
+        LocalDateTime ultimaActualizacion = usuarioResidentado.getUltimoCambioContrasenia();
+        if (ultimaActualizacion != null && ChronoUnit.MONTHS.between(ultimaActualizacion, LocalDateTime.now()) < 6) {
+            throw new RuntimeException("Solo puedes cambiar tu contraseña cada 6 meses.");
+        }
+
         usuarioResidentado.setContrasenia(nuevaContrasenia);
+        usuarioResidentado.setUltimoCambioContrasenia(LocalDateTime.now());
         usuarioResidentadoRepository.save(usuarioResidentado);
     }
 }

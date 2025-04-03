@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -48,11 +49,15 @@ public class AuthController {
         return "perfil";
     }
 
-
     @PostMapping("/cambiarContraseña")
-    public String cambiarContrasenia(@RequestParam String password) {
-        authService.cambiarContrasenia(password);
-        return "redirect:/logout";
+    public String cambiarContrasenia(@RequestParam String password, RedirectAttributes redirectAttributes) {
+        try {
+            authService.cambiarContrasenia(password);
+            return "redirect:/logout";
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/perfil";
+        }
     }
 }
 

@@ -108,7 +108,7 @@
                         <td class="p-3 text-center" th:text="${nota.getCurso().getCreditos()}"></td>
                         <td class="p-3 text-center" th:text="${nota.getCurso().getCategoria()}"></td>
                         <td class="p-3 text-center" th:text="${#dates.format(nota.getCurso().getFechaFinalizacion(), 'dd/MM/yyyy')}"></td>
-                        <td class="p-3 text-center" th:text="${(nota.getTipoNota() == 'N ') ? '' : (nota.getTipoNota() == 'H' ? 'Homologación' : 'Convalidación')}"></td>
+                        <td class="p-3 text-center" th:text="${(nota.getTipoNota() == 'N ') ? '' : (nota.getTipoNota() == 'H ' ? 'Homologación' : 'Convalidación')}"></td>
                         <td class="p-3 text-center" th:text="${nota.getResolucion()}"></td>
                     </tr>
                     </tbody>

@@ -24,6 +24,11 @@
 <body>
 <div layout:fragment="content">
     <div class="grid grid-rows-auto gap-4 p-4">
+
+        <div th:if="${error != null}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+
         <div class="bg-[#6870A3] text-white p-4 rounded-lg shadow-md">
             <p>
                 La siguiente sección muestra sus datos personales. Si encuentra algún error o inconsistencia,

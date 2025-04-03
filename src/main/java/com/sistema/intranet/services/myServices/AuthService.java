@@ -30,6 +30,4 @@ public class AuthService {
                 passwordEncoder.encode(nuevaContrasenia)
         );
     }
-
-
 }
