@@ -22,7 +22,7 @@ public class UsuarioResidentadoService {
 
         LocalDateTime ultimaActualizacion = usuarioResidentado.getUltimoCambioContrasenia();
         if (ultimaActualizacion != null && ChronoUnit.MONTHS.between(ultimaActualizacion, LocalDateTime.now()) < 6) {
-            throw new RuntimeException("Solo puedes cambiar tu contraseña cada 6 meses.");
+            throw new RuntimeException("La contraseña ya fue cambiada.");
         }
 
         usuarioResidentado.setContrasenia(nuevaContrasenia);

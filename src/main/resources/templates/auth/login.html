@@ -36,6 +36,10 @@
             <h1 class="text-2xl font-semibold text-center drop-shadow-lg">Login</h1>
           </div>
 
+          <div th:if="${error != null}" class="alert alert-danger text-sm mt-4">
+            <p th:text="${error}"></p>
+          </div>
+
           <!--contenido-->
           <div class="divide-y divide-gray-200">
               <form method="post" th:action="@{/login}" class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
@@ -57,12 +61,13 @@
 
                 <!-- recuérdame y botón ingresar -->
                 <div class="relative flex justify-between items-center h-full">
-                  <div class="flex items-center">
+                  <div></div>
+                  <!-- <div class="flex items-center">
                     <input id="remember_me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
                     <label for="remember_me" class="ml-2 block text-sm text-gray-900">
                       Recordar contraseña
                     </label>
-                  </div>
+                  </div> -->
                   <button type="submit" class="bg-cyan-500 text-white rounded-md px-2 py-1">Ingresar</button>
                 </div>
 

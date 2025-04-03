@@ -21,9 +21,14 @@ public class AuthController {
     private final AuthService authService;
 
     @GetMapping("/login")
-    public String login(Authentication authentication) {
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        Model model,
+                        Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/dashboard";
+        }
+        if (error != null) {
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
         }
         return "auth/login";
     }

@@ -25,10 +25,6 @@
 <div layout:fragment="content">
     <div class="grid grid-rows-auto gap-4 p-4">
 
-        <div th:if="${error != null}" class="alert alert-danger">
-            <p th:text="${error}"></p>
-        </div>
-
         <div class="bg-[#6870A3] text-white p-4 rounded-lg shadow-md">
             <p>
                 La siguiente sección muestra sus datos personales. Si encuentra algún error o inconsistencia,
@@ -107,6 +103,9 @@
                         <h2 class="mb-1 text-xl leading-6 font-medium text-gray-900">
                             Cambiar contraseña
                         </h2>
+                        <div th:if="${error != null}" class="alert alert-danger mt-2">
+                            <p th:text="${error}"></p>
+                        </div>
                         <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" th:action="@{/cambiarContraseña}" method="post">
                             <div>
                                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Nueva contraseña</label>

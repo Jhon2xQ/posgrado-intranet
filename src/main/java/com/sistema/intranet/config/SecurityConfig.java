@@ -34,6 +34,7 @@ public class SecurityConfig {
                 })
                 .formLogin(httpForm -> {
                     httpForm.loginPage("/login").permitAll();
+                    httpForm.failureUrl("/login?error=true");
                     httpForm.successHandler((request, response, authentication) -> {
                         response.sendRedirect("/dashboard"); // Redirige al dashboard después de autenticarse
                     });
