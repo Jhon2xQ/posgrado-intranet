@@ -3,8 +3,11 @@ package com.sistema.intranet.controllers;
 import com.sistema.intranet.dtos.paquetes.InformacionAlumnoDto;
 import com.sistema.intranet.services.myServices.AuthService;
 import com.sistema.intranet.services.myServices.GeneralService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,10 +58,16 @@ public class AuthController {
     }
 
     @PostMapping("/cambiarContraseña")
-    public String cambiarContrasenia(@RequestParam String password, RedirectAttributes redirectAttributes) {
+    public String cambiarContrasenia(@RequestParam String password, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
             authService.cambiarContrasenia(password);
-            return "redirect:/logout";
+            // Invalidar sesión y cerrar sesión del usuario
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();  // Invalida la sesión actual
+            }
+            SecurityContextHolder.clearContext();  // Limpia la autenticación
+            return "redirect:/login";
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/perfil";
