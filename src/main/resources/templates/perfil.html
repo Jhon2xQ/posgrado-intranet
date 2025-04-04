@@ -103,7 +103,7 @@
                         <h2 class="mb-1 text-xl leading-6 font-medium text-gray-900">
                             Cambiar contraseña
                         </h2>
-                        <div th:if="${error != null}" class="alert alert-danger mt-2">
+                        <div th:if="${error != null}" class="alert alert-danger mt-2 text-red-400">
                             <p th:text="${error}"></p>
                         </div>
                         <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" th:action="@{/cambiarContraseña}" method="post">
