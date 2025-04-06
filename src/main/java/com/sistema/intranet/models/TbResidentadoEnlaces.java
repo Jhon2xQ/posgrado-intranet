@@ -27,8 +27,8 @@ public class TbResidentadoEnlaces implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "cuerpo")
-    private String cuerpo;
+    @Column(name = "titulo")
+    private String titulo;
 
     @Column(name = "enlace")
     private String enlace;

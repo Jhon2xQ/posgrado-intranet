@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class EnlaceDto {
-    private String cuerpo;
+    private String titulo;
     private String enlace;
 }

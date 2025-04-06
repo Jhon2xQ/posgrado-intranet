@@ -1,83 +1,115 @@
 <!DOCTYPE html>
-<html lang=""
-      layout:decorate="~{layouts/main}"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-
-<head>
+<html
+  lang=""
+  layout:decorate="~{layouts/main}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
     <title>Dashboard</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div layout:fragment="content">
-        <div class="lg:grid lg:grid-cols-2 gap-4">
-            <!--primera-columna-->
-            <div class="p-4">
-                <!--primera-fila-->
-                <div class="p-2 lg:p-4 lg:my-6">
-                    <!--===================DATOS-PERSONALES===================-->
-                    <h2 class="text-xl lg:text-2xl text-gray-600 italic">Bienvenid@</h2>
-                    <h1 class="text-2xl lg:text-4xl font-semibold italic"
-                        th:text="${infoAlumno.getPersona().getNombres()}"></h1>
-                    <h1 class="mt-6 text-gray-600 text-xl font-semibold italic"
-                        th:text="${infoAlumno.getCarrera().getNombre()+' '+infoAlumno.getEspecialidad().getDescripcion()}"></h1>
-                </div>
-                <!--segunda-fila-->
-                <div class="mt-10 lg:p-4">
-                    <!--=====================COMUNICADOS======================-->
-                    <div class="flex justify-center">
-                        <h3 class="text-xl bg-purple-200 text-purple-700 px-4 py-2 mt-4 rounded-lg font-bold lg:w-1/2 text-center">COMUNICADO</h3>
-                    </div>
-                    <div class="mt-6 space-y-3">
-                        <div class="flex items-center justify-center">
-                            <div class="xl:flex w-full p-6 bg-white rounded-lg shadow-lg gap-4 max-w-md xl:max-w-none">
-                                <div class="w-full flex justify-center mt-6 md:mt-0">
-                                    <img th:src="${aviso.getEnlaceImagen()}" alt="imagen_comunicado">
-                                </div>
-                                <div class="mt-6 md:mt-0">
-                                    <h1 class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6" th:text="${aviso.getTitulo()}"></h1>
-                                    <p class="text-sm text-gray-600 text-justify mt-8 mb-6" th:text="${aviso.getCuerpo()}"></p>
-                                    <div class="flex justify-center space-x-4 my-4">
-                                        <a th:href="${aviso.getEnlaceVerMas()}"
-                                           target="_blank"
-                                           rel="noopener noreferrer"
-                                           class="bg-gradient-to-r from-cyan-950 to-cyan-600 text-white px-4 py-2 rounded-md md:w-1/3 text-center">
-                                            Ver más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div class="lg:grid lg:grid-cols-2 gap-4">
+        <!--primera-columna-->
+        <div class="p-4">
+          <!--primera-fila-->
+          <div class="p-2 lg:p-4 lg:my-6">
+            <!--===================DATOS-PERSONALES===================-->
+            <h2 class="text-xl lg:text-2xl text-gray-600 italic">Bienvenid@</h2>
+            <h1
+              class="text-2xl lg:text-4xl font-semibold italic"
+              th:text="${infoAlumno.getPersona().getNombres()}"
+            ></h1>
+            <h1
+              class="mt-6 text-gray-600 text-xl font-semibold italic"
+              th:text="${infoAlumno.getCarrera().getNombre()+' '+infoAlumno.getEspecialidad().getDescripcion()}"
+            ></h1>
+          </div>
+          <!--segunda-fila-->
+          <div class="mt-10 lg:p-4">
+            <!--=====================COMUNICADOS======================-->
+            <div class="flex justify-center">
+              <h3
+                class="text-xl bg-purple-200 text-purple-700 px-4 py-2 mt-4 shadow-lg rounded-lg font-bold lg:w-1/2 text-center"
+              >
+                COMUNICADO
+              </h3>
             </div>
-            <!--segunda-columna-->
-            <div>
-                <div class="p-4 flex justify-center">
-                    <!--=================ACCESOS-Y-ENLACES-EXTERNOS=================-->
-                    <div class="mt-6 bg-white p-4 rounded-lg shadow-md w-80 md:w-1/2 lg:w-80">
-                        <h3 class="font-semibold">¿Qué podrás hacer aquí?</h3>
+            <div class="mt-6 space-y-3">
+              <div class="flex items-center justify-center">
+                <div
+                  class="xl:flex w-full p-6 bg-white rounded-lg shadow-lg gap-4 max-w-md xl:max-w-none"
+                >
+                  <div class="w-full flex justify-center mt-6 md:mt-0">
+                    <img
+                      th:src="${aviso.getEnlaceImagen()}"
+                      alt="imagen_comunicado"
+                    />
+                  </div>
+                  <div class="mt-6 md:mt-0">
+                    <h1
+                      class="text-2xl font-semibold text-center text-gray-500 mt-8 mb-6"
+                      th:text="${aviso.getTitulo()}"
+                    ></h1>
+                    <p
+                      class="text-gray-600 text-justify mt-8 mb-6"
+                      th:text="${aviso.getCuerpo()}"
+                    ></p>
+                    <div class="flex justify-center space-x-4 my-4">
+                      <a
+                        th:href="${aviso.getEnlaceVerMas()}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-gradient-to-r from-cyan-950 to-cyan-600 text-white px-4 py-2 rounded-md md:w-1/3 text-center"
+                      >
+                        Ver más
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--segunda-columna-->
+        <div>
+          <div class="p-4 flex justify-center">
+            <!--=================ACCESOS-Y-ENLACES-EXTERNOS=================-->
+            <div class="mt-6 bg-white p-4 rounded-lg shadow-md md:w-2/3">
+              <!--<h3 class="font-semibold">¿Qué podrás hacer aquí?</h3>
                         <ul class="list-disc list-inside text-sm mt-2 text-center">
                             <li>VERIFICAR REPORTE DE NOTAS</li>
                             <li>VERIFICAR REPORTE DE PAGOS</li>
-                        </ul>
-                        <h4 class="mt-4 font-semibold">Enlaces externos:</h4>
-                        <ul class="list-disc list-inside text-blue-500 text-sm space-y-1 mt-2">
-                            <li th:each="enlace : ${enlaces}">
-                                <a th:href="${enlace.getEnlace()}"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   th:text="${enlace.getCuerpo()}">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                        </ul>-->
+              <h4 class="mt-4 font-semibold">ENLACES EXTERNOS:</h4>
+              <div class="space-y-3 mt-2">
+                <div th:each="enlace : ${enlaces}" class="flex items-center justify-between bg-gray-100 px-3 py-2 rounded space-x-3">
+
+                  <span th:text="${enlace.getTitulo()}" class="text-black font-medium"></span>
+
+                  <a th:href="${enlace.getEnlace()}" target="_blank" rel="noopener noreferrer">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded w-20">
+                      Ir
+                    </button>
+                  </a>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-        <!--imagen-posgrado-->
-        <div class="lg:absolute lg:bottom-0 lg:right-0 w-screen lg:w-1/2 opacity-50 lg:mb-24">
-            <img th:src="@{/images/image-dashboard.png}" alt="posgrado" class="w-full h-auto">
-        </div>
+      </div>
+      <!--imagen-posgrado-->
+      <div
+        class="lg:absolute lg:bottom-0 lg:right-0 w-screen lg:w-1/2 opacity-50 lg:mb-24"
+      >
+        <img
+          th:src="@{/images/image-dashboard.png}"
+          alt="posgrado"
+          class="w-full h-auto"
+        />
+      </div>
     </div>
-</body>
+  </body>
 </html>
