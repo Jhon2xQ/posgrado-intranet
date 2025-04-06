@@ -14,7 +14,7 @@ public class UsuarioResidentadoService {
     private final UsuarioResidentadoRepository usuarioResidentadoRepository;
 
     public TbUsuarioResidentado getUsuarioResidentado(String usuario){
-        return usuarioResidentadoRepository.findById(usuario).orElseThrow(() -> new RuntimeException("Credenciales no encontradas."));
+        return usuarioResidentadoRepository.findByUsuarioAndEstado(usuario, true).orElseThrow(() -> new RuntimeException("Credenciales no encontradas."));
     }
 
     public void cambiarContrasenia(String usuario, String nuevaContrasenia) {
