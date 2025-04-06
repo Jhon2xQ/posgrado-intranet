@@ -48,6 +48,16 @@ public class ModelMapperConfig {
         return modelMapper;
     }
 
+    private ModelMapper mapperToAviso(ModelMapper modelMapper) {
+        modelMapper.typeMap(TbResidentadoAvisos.class, AvisoDto.class);
+        return modelMapper;
+    }
+
+    private ModelMapper mapperToEnlace(ModelMapper modelMapper) {
+        modelMapper.typeMap(TbResidentadoEnlaces.class, EnlaceDto.class);
+        return modelMapper;
+    }
+
     @Bean("personaMapper")
     public ModelMapper PersonaModelMapper() {
         return mapperToPersona(this.modelMapper());
@@ -81,5 +91,15 @@ public class ModelMapperConfig {
     @Bean("curriculaCursoMapper")
     public ModelMapper CurriculaCursoModelMapper() {
         return mapperToCurriculaCurso(this.modelMapper());
+    }
+
+    @Bean("avisoMapper")
+    public ModelMapper AvisoModelMapper() {
+        return mapperToAviso(this.modelMapper());
+    }
+
+    @Bean("enlaceMapper")
+    public ModelMapper EnlaceModelMapper() {
+        return mapperToEnlace(this.modelMapper());
     }
 }

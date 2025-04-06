@@ -1,6 +1,8 @@
 package com.sistema.intranet.controllers;
 
 import com.sistema.intranet.dtos.paquetes.InformacionAlumnoDto;
+import com.sistema.intranet.services.AvisosService;
+import com.sistema.intranet.services.EnlacesService;
 import com.sistema.intranet.services.myServices.AuthService;
 import com.sistema.intranet.services.myServices.GeneralService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,12 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequiredArgsConstructor
 
-@SessionAttributes("infoAlumno")
+@SessionAttributes({"infoAlumno"})
 
 public class AuthController {
 
     private final GeneralService generalService;
     private final AuthService authService;
+    private final AvisosService avisosService;
+    private final EnlacesService enlacesService;
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
@@ -46,6 +50,8 @@ public class AuthController {
         if (!model.containsAttribute("infoAlumno")) {
             model.addAttribute("infoAlumno", generalService.getInformacionAlumno());
         }
+        model.addAttribute("aviso", avisosService.getAviso());
+        model.addAttribute("enlaces", enlacesService.getEnlaces());
         return "dashboard";
     }
 
