@@ -48,7 +48,6 @@
                     <img
                             th:src="${aviso.getEnlaceImagen()}"
                             alt="imagen_comunicado"
-                            class="object-none"
                     />
                   </div>
 
@@ -107,14 +106,11 @@
         </div>
       </div>
       <!--imagen-posgrado-->
-      <div
-        class="lg:absolute lg:bottom-0 lg:right-0 w-screen lg:w-1/2 opacity-50 lg:mb-24"
-      >
+      <div class="lg:absolute lg:bottom-0 lg:right-0 w-screen lg:w-1/2 opacity-50 lg:mb-24 z-[-100] pointer-events-none">
         <img
           th:src="@{/images/image-dashboard.png}"
           alt="posgrado"
-          class="w-full h-auto"
-        />
+          class="w-full h-auto"/>
       </div>
     </div>
   </body>
