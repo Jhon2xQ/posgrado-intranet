@@ -90,13 +90,13 @@
                         </ul>-->
               <h4 class="mt-4 font-semibold">ENLACES EXTERNOS:</h4>
               <div class="space-y-3 mt-2">
-                <div th:each="enlace : ${enlaces}" class="flex items-center justify-between bg-gray-100 px-3 py-2 rounded space-x-3">
+                <div th:each="enlace : ${enlaces}" class="flex items-center justify-between bg-gray-200 px-3 py-2 rounded space-x-3">
 
                   <span th:text="${enlace.getTitulo()}" class="text-black font-medium"></span>
 
                   <a th:href="${enlace.getEnlace()}" target="_blank" rel="noopener noreferrer">
                     <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded w-20">
-                      Ir
+                      Ver
                     </button>
                   </a>
                 </div>
