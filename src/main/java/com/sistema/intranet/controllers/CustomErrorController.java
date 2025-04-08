@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @Controller
 public class CustomErrorController implements ErrorController {
+    //Util para que cuando se ingrese a una URL no autorizada o invalida. Redirigir siempre al dashboard.
     @GetMapping("/error")
     public void handleError(@AuthenticationPrincipal UserDetails userDetails, HttpServletRequest request, HttpServletResponse response) throws IOException {
         int statusCode = response.getStatus();
