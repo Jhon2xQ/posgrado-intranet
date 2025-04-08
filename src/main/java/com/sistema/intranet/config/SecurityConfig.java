@@ -27,19 +27,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests(request -> {
-                            request.requestMatchers("/images/*", "/css/*", "/js/*").permitAll();
-                            request.requestMatchers("/notas","/pagos").hasRole("ESTUDIANTE");
+                            request.requestMatchers("/images/*", "/css/*", "/js/*").permitAll();     //permitir los recursos a todos.
+                            request.requestMatchers("/notas","/pagos").hasRole("ESTUDIANTE");          //enlaces solo para Estudiante.
                             request.anyRequest().authenticated();
                 })
                 .formLogin(httpForm -> {
-                    httpForm.loginPage("/login").permitAll();
-                    httpForm.failureUrl("/login?error=true");
-                    httpForm.defaultSuccessUrl("/dashboard", true);
+                    httpForm.loginPage("/login").permitAll();                                              //Indicar la interfaz del login.
+                    httpForm.failureUrl("/login?error=true");                           //Redirigir en caso de error en login.
+                    httpForm.defaultSuccessUrl("/dashboard", true);               //redirigir al dashboard para login exitoso.
                 })
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/login")                                                        //redirigir al login cuando se cierra sesion.
+                        .invalidateHttpSession(true)                                                       //Invalidar su cesion.
+                        .deleteCookies("JSESSIONID")                                    //Eliminar el ID de cesion.
                 );
         return httpSecurity.build();
     }
