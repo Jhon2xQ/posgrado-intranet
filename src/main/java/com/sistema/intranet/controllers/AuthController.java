@@ -27,6 +27,8 @@ public class AuthController {
     private final AvisosService avisosService;
     private final EnlacesService enlacesService;
 
+    //Muestra login.html, dentro de este, hay un metodo POST para login.
+    //Verifique userDetails/SecurityConfig.
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         Model model,
@@ -40,33 +42,37 @@ public class AuthController {
         return "auth/login";
     }
 
+    //Metodo get para register en caso lo hubiera.
     /* @GetMapping("/register")
     public String register() {
         return null;
     }*/
 
+    //Muestra dashboard.html una vez realizado un login exitoso.
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        if (!model.containsAttribute("infoAlumno")) {
-            model.addAttribute("infoAlumno", generalService.getInformacionAlumno());
+        if (!model.containsAttribute("infoAlumno")) {                                  //Guardar info alumno en sesion (@SessionAttributes) y
+            model.addAttribute("infoAlumno", generalService.getInformacionAlumno());   //Si hay cambios en la DB, cerrar cesion y volver a ingresar
         }
-        model.addAttribute("aviso", avisosService.getAviso());
-        model.addAttribute("enlaces", enlacesService.getEnlaces());
+        model.addAttribute("aviso", avisosService.getAviso());                         //obtener aviso.
+        model.addAttribute("enlaces", enlacesService.getEnlaces());                    //obtener enlaces externos.
         return "dashboard";
     }
 
+    //muestra perfil.html
     @GetMapping("/perfil")
     public String perfil(Model model, @SessionAttribute("infoAlumno") InformacionAlumnoDto infoAlumno) {
         if (!model.containsAttribute("infoAlumno")) {
-            model.addAttribute("infoAlumno", infoAlumno);
+            model.addAttribute("infoAlumno", infoAlumno);                              //Obtener la info del alumno guardado en sesion.
         }
         return "perfil";
     }
 
+    //Metodo post para guardar cambiar la contrasenia del alumno.
     @PostMapping("/cambiarContraseña")
     public String cambiarContrasenia(@RequestParam String password, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
-            authService.cambiarContrasenia(password);
+            authService.cambiarContrasenia(password);                                              //cambiar contrasenia.
             // Invalidar sesión y cerrar sesión del usuario
             HttpSession session = request.getSession(false);
             if (session != null) {

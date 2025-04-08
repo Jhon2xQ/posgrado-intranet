@@ -55,7 +55,7 @@ public class NotasCompletoService {
                         nota.getGrupo())
                 ).toList();
 
-        List<NotaDto> notasConvalidacion = convalidacionService.getNotasConvalidacionUltimaCurricula(alumno, carrera)
+        List<NotaDto> notasConvalidacion = convalidacionService.getNotasConvalidacionUltimaCurricula(alumno, carrera, curricula)
                 .stream().map(nota -> new NotaDto(
                         //obtener datos del curso que está en CurriculaCurso
                         curriculaCursoService.getCurriculaCurso(
