@@ -21,7 +21,7 @@ public class GeneralService {
 
     /*=================================MÉTODOS=================================*/
 
-    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    //Obtener-datos-generales-del alumno-----------------------------
     public InformacionAlumnoDto getInformacionAlumno(){
         CustomUserDetails user = authService.getUsuarioAutenticado();                                           //obtener usuario autenticado
         TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());        //buscar en tbAlumnoCarrera
@@ -34,24 +34,24 @@ public class GeneralService {
         );
     }
 
-    //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
+    //Obtener-datos-generales-para-la-interfaz-notas-----------------------------
     public NotasCompletoDto getNotasAlumno(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
+        CustomUserDetails user = authService.getUsuarioAutenticado();                                           //Obtener usuario autenticado
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());        //buscar en tbAlumnoCarrera
         return notasCompletoService.getNotasCompleto(
-                user.getUsername(),
-                alumnoCarrera.getCarrera(),
-                alumnoCarrera.getCurricula()
+                user.getUsername(),                         //codigo
+                alumnoCarrera.getCarrera(),                 //carrera
+                alumnoCarrera.getCurricula()                //curricula
         );
     }
 
     //Obtener-datos-generales-para-la-interfaz-pagos-----------------------------
     public PagosCompletoDto getPagosAlumno(){
-        CustomUserDetails user = authService.getUsuarioAutenticado();
-        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());
+        CustomUserDetails user = authService.getUsuarioAutenticado();                                          //Obtener usuario autenticado
+        TbAlumnoCarrera alumnoCarrera = alumnoCarreraService.getAlumnoCarreraActivo(user.getUsername());       //buscar en tbAlumnoCarrera
         return pagosCompletoService.getPagosCompleto(
-                user.getUsername(),
-                alumnoCarrera.getMontoMaestria()
+                user.getUsername(),                         //codigo
+                alumnoCarrera.getMontoMaestria()            //monto total por programa
         );
     }
 }

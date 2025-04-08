@@ -24,37 +24,42 @@ public class NotasCompletoService {
     private final ConvalidacionReconocimientoService convalidacionService;
     private final CurriculaCursoService curriculaCursoService;
 
+    /*=================================MÉTODOS=================================*/
+
+    //Obtener-todas las notas del alumno: regular-homologacion-convalidacion-----------------------------
     public NotasCompletoDto getNotasCompleto(String codigo, String carrera, Integer curricula) {
         List<NotaDto> notasCompleto = this.getNotas(codigo, carrera, curricula);
         return new NotasCompletoDto(
-                notasCompleto,
-                this.getSemestres(notasCompleto),
-                this.getTotalCreditos(notasCompleto, curricula, carrera)
+                notasCompleto,                                              //total notas del alumno
+                this.getSemestres(notasCompleto),                           //semestres totales
+                this.getTotalCreditos(notasCompleto, curricula, carrera)    //total creditos
         );
     }
 
+    //Obtener-todas las notas del alumno: regular-homologacion-convalidacion-----------------------------
     public List<NotaDto> getNotas(String alumno, String carrera, Integer curricula) {
 
-        List<NotaDto> notasRegular = notaService.getNotas(alumno, carrera, curricula)
+        //Obtener notas tanto regulares como homologadas
+        List<NotaDto> notasRegular = notaService.getNotas(alumno, carrera, curricula)   //buscar notas regulares/homologadas
                 .stream().map(nota -> new NotaDto(
-                        //obtener datos del curso que está en CurriculaCurso
-                        curriculaCursoService.getCurriculaCurso(
-                                nota.getCurso(),
-                                nota.getCursoAux(),
-                                nota.getCurriculaAux(),
-                                nota.getSemestre(),
-                                nota.getCarrera(),
-                                nota.getEspecialidad(),
-                                nota.getGrupo(),
-                                nota.getCurricula(),
-                                null),
-                        nota.getSemestre(),
-                        nota.getNota(),
-                        nota.getTipoNota(),
-                        nota.getResolucion(),
-                        nota.getGrupo())
+                        curriculaCursoService.getCurriculaCurso(                        //obtener datos del curso que está en CurriculaCurso
+                                nota.getCurso(),                      //codigo curso actual
+                                nota.getCursoAux(),                   //codigo curso antigua
+                                nota.getCurriculaAux(),               //curricula del curso antiguo
+                                nota.getSemestre(),                   //semestre que se llevo el curso
+                                nota.getCarrera(),                    //carrera
+                                nota.getEspecialidad(),               //especialidad
+                                nota.getGrupo(),                      //grupo del curso
+                                nota.getCurricula(),                  //curricula actual del curso
+                                null),    //fecha captura
+                        nota.getSemestre(),                           //semestre
+                        nota.getNota(),                               //nota
+                        nota.getTipoNota(),                           //tipo nota
+                        nota.getResolucion(),                         //resolucion
+                        nota.getGrupo())                              //grupo
                 ).toList();
 
+        //Obtener notas convalidacion: Misma estructura que 'notasRegular'.
         List<NotaDto> notasConvalidacion = convalidacionService.getNotasConvalidacionUltimaCurricula(alumno, carrera, curricula)
                 .stream().map(nota -> new NotaDto(
                         //obtener datos del curso que está en CurriculaCurso
@@ -75,13 +80,16 @@ public class NotasCompletoService {
                         "")
                 ).toList();
 
+        //JUNTAR TODAS LAS NOTAS Y DEVOLVER.
         return Stream.concat(notasRegular.stream(), notasConvalidacion.stream()).collect(Collectors.toList());
     }
 
+    //Obtener los semestre de notas del alumno.
     public List<String> getSemestres(List<NotaDto> notasCompleto) {
         return notasCompleto.stream().map(NotaDto::getSemestre).distinct().collect(Collectors.toList());
     }
 
+    //Obtener total creditos acumulados
     public Integer getTotalCreditos(List<NotaDto> notasCompleto, Integer curricula, String carrera) {
         Double notaAprobacion = curriculaService.getCurricula(curricula, carrera).getNotaAprobacion();
         return notasCompleto.stream()
@@ -90,6 +98,7 @@ public class NotasCompletoService {
                 .sum();
     }
 
+    //Funcion que filtra las notas de un determinado semestre.
     public List<NotaDto> filtrarNotasPorSemestre(List<NotaDto> notasCompleto, String semestre) {
         return notasCompleto.stream()
                 .filter(nota -> nota.getSemestre().equals(semestre))
