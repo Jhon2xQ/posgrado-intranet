@@ -38,8 +38,8 @@ public class SecurityConfig {
                 })
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")                                                        //redirigir al login cuando se cierra sesion.
-                        .invalidateHttpSession(true)                                                       //Invalidar su cesion.
-                        .deleteCookies("JSESSIONID")                                    //Eliminar el ID de cesion.
+                        .invalidateHttpSession(true)                                                       //Invalidar su sesion.
+                        .deleteCookies("JSESSIONID")                                    //Eliminar el ID de sesion.
                 );
         return httpSecurity.build();
     }

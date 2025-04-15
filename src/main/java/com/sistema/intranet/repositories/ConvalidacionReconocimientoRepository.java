@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ConvalidacionReconocimientoRepository extends JpaRepository<TbConvalidacionReconocimiento, String> {
-    List<TbConvalidacionReconocimiento> findAllByAlumnoAndCarreraAndEstadoAndCurriculaGreaterThan(String alumno, String carrera, String estado, Integer curricula);
+    List<TbConvalidacionReconocimiento> findAllByAlumnoAndCarreraAndEstadoAndCurriculaGreaterThanEqual(String alumno, String carrera, String estado, Integer curriculaIsGreaterThan);
 }

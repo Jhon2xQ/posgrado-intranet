@@ -14,6 +14,6 @@ public class ConvalidacionReconocimientoService {
     private final ConvalidacionReconocimientoRepository convalidacionRepository;
 
     public List<TbConvalidacionReconocimiento> getNotasConvalidacionUltimaCurricula(String alumno, String carrera, Integer curricula){
-        return convalidacionRepository.findAllByAlumnoAndCarreraAndEstadoAndCurriculaGreaterThan(alumno, carrera, "A", curricula);
+        return convalidacionRepository.findAllByAlumnoAndCarreraAndEstadoAndCurriculaGreaterThanEqual(alumno, carrera, "A", curricula);
     }
 }
